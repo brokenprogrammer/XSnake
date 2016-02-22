@@ -29,7 +29,9 @@
 
 @implementation GameScene
 SKShapeNode *shape;
-const float velo = 5.0;
+const float velo = 50.0;
+
+SKAction *movement;
 
 bool moveUp = false;
 bool moveLeft = false;
@@ -58,6 +60,8 @@ bool moveRight = false;
     shape.fillColor = [SKColor redColor];
     
     [self addChild:shape];
+    
+    //movement = [SKAction moveByX:<#(CGFloat)#> y:<#(CGFloat)#> duration:<#(NSTimeInterval)#>];
     
     //[self drawGrid:view];
 }
@@ -88,7 +92,9 @@ bool moveRight = false;
         
         switch (keyChar) {
             case NSUpArrowFunctionKey:
-                moveUp = true;
+                //moveUp = true;
+                movement = [SKAction moveByX:0 y:velo duration: 0];
+                [shape runAction:movement withKey: @"MoveUp"];
                 //shape.position = CGPointMake(shape.position.x, shape.position.y + velo);
                 NSLog(@"Hej %f", shape.position.y);
                 break;
@@ -121,6 +127,7 @@ bool moveRight = false;
         switch (keyChar) {
             case NSUpArrowFunctionKey:
                 moveUp = false;
+                [shape removeActionForKey: @"MoveUp"];
                 //shape.position = CGPointMake(shape.position.x, shape.position.y + velo);
                 NSLog(@"Hej %f", shape.position.y);
                 break;
