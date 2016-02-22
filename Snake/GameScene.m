@@ -28,6 +28,15 @@
 #import "GameScene.h"
 
 @implementation GameScene
+SKShapeNode *shape;
+const float velo = 5.0;
+
+bool moveUp = false;
+bool moveLeft = false;
+bool moveDown = false;
+bool moveRight = false;
+
+//@TODO Add Action instead of booleans for moving sprite.
 
 -(void)didMoveToView:(SKView *)view {
     /* Setup your scene here */
@@ -42,7 +51,7 @@
     
     self.backgroundColor = [SKColor colorWithRed: 0.0 green: 0.0 blue: 0.0 alpha: 1.0];
     
-    SKShapeNode *shape = [SKShapeNode shapeNodeWithRectOfSize:CGSizeMake(50.0, 50.0)];
+    shape = [SKShapeNode shapeNodeWithRectOfSize:CGSizeMake(50.0, 50.0)];
     shape.strokeColor = [SKColor redColor];
     shape.lineWidth = 3;
     shape.position = CGPointMake(100.0, 100.0);
@@ -79,15 +88,55 @@
         
         switch (keyChar) {
             case NSUpArrowFunctionKey:
-                NSLog(@"Hej");
+                moveUp = true;
+                //shape.position = CGPointMake(shape.position.x, shape.position.y + velo);
+                NSLog(@"Hej %f", shape.position.y);
                 break;
             case NSLeftArrowFunctionKey:
+                moveLeft = true;
+                //shape.position = CGPointMake(shape.position.x - velo, shape.position.y);
                 NSLog(@"Hej");
                 break;
             case NSDownArrowFunctionKey:
+                moveDown = true;
+                //shape.position = CGPointMake(shape.position.x, shape.position.y - velo);
                 NSLog(@"Hej");
                 break;
             case NSRightArrowFunctionKey:
+                moveRight = true;
+                //shape.position = CGPointMake(shape.position.x + velo, shape.position.y);
+                NSLog(@"Hej");
+                break;
+        }
+    }
+}
+
+-(void)keyUp:(NSEvent *)theEvent {
+    NSString *key = [theEvent charactersIgnoringModifiers];
+    unichar keyChar = 0;
+    
+    if ([key length] == 1) {
+        keyChar = [key characterAtIndex:0];
+        
+        switch (keyChar) {
+            case NSUpArrowFunctionKey:
+                moveUp = false;
+                //shape.position = CGPointMake(shape.position.x, shape.position.y + velo);
+                NSLog(@"Hej %f", shape.position.y);
+                break;
+            case NSLeftArrowFunctionKey:
+                moveLeft = false;
+                //shape.position = CGPointMake(shape.position.x - velo, shape.position.y);
+                NSLog(@"Hej");
+                break;
+            case NSDownArrowFunctionKey:
+                moveDown = false;
+                //shape.position = CGPointMake(shape.position.x, shape.position.y - velo);
+                NSLog(@"Hej");
+                break;
+            case NSRightArrowFunctionKey:
+                moveRight = false;
+                //shape.position = CGPointMake(shape.position.x + velo, shape.position.y);
                 NSLog(@"Hej");
                 break;
         }
@@ -96,6 +145,22 @@
 
 -(void)update:(CFTimeInterval)currentTime {
     /* Called before each frame is rendered */
+    
+    if (moveUp) {
+        shape.position = CGPointMake(shape.position.x, shape.position.y + velo);
+    }
+    
+    if (moveLeft) {
+        shape.position = CGPointMake(shape.position.x - velo, shape.position.y);
+    }
+    
+    if (moveDown) {
+        shape.position = CGPointMake(shape.position.x, shape.position.y - velo);
+    }
+    
+    if (moveRight) {
+        shape.position = CGPointMake(shape.position.x + velo, shape.position.y);
+    }
 }
 
 -(void)drawGrid:(SKView *)view {
