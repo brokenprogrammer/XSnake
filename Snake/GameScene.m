@@ -50,7 +50,7 @@
     
     [self addChild:shape];
     
-    [self drawGrid:view];
+    //[self drawGrid:view];
 }
 
 -(void)mouseDown:(NSEvent *)theEvent {
@@ -68,6 +68,30 @@
     [sprite runAction:[SKAction repeatActionForever:action]];
     
     [self addChild:sprite];
+}
+
+-(void)keyDown:(NSEvent *)theEvent {
+    NSString *key = [theEvent charactersIgnoringModifiers];
+    unichar keyChar = 0;
+    
+    if ([key length] == 1) {
+        keyChar = [key characterAtIndex:0];
+        
+        switch (keyChar) {
+            case NSUpArrowFunctionKey:
+                NSLog(@"Hej");
+                break;
+            case NSLeftArrowFunctionKey:
+                NSLog(@"Hej");
+                break;
+            case NSDownArrowFunctionKey:
+                NSLog(@"Hej");
+                break;
+            case NSRightArrowFunctionKey:
+                NSLog(@"Hej");
+                break;
+        }
+    }
 }
 
 -(void)update:(CFTimeInterval)currentTime {
