@@ -24,12 +24,18 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+#define ARC4RANDOM_MAX 0x100000000
 
 #import "GameScene.h"
 
 @implementation GameScene
+static const int snakeHitCategory = 1;
+static const int coinHitCategory = 2;
+
 SKShapeNode *shape;
-const float velo = 50.0;
+SKShapeNode *coin;
+
+const float velo = 15.0;
 
 SKAction *movement;
 
@@ -38,10 +44,17 @@ bool moveLeft = false;
 bool moveDown = false;
 bool moveRight = false;
 
+bool noCoin = true;
+
 //@TODO Add Action instead of booleans for moving sprite.
+//http://stackoverflow.com/questions/22495285/sprite-kit-collision-detection
+//Fix real collisions, Add classes for snake & Coin.
 
 -(void)didMoveToView:(SKView *)view {
     /* Setup your scene here */
+    self.physicsWorld.gravity = CGVectorMake(0, 0);
+    self.physicsWorld.contactDelegate = self;
+    
     SKLabelNode *myLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
     
     myLabel.text = @"Hello, World!";
@@ -58,7 +71,26 @@ bool moveRight = false;
     shape.lineWidth = 3;
     shape.position = CGPointMake(100.0, 100.0);
     shape.fillColor = [SKColor redColor];
+    CGSize shapeSize = CGSizeMake(50, 50);
+    shape.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:shapeSize];
+    shape.physicsBody.usesPreciseCollisionDetection = YES;
+    shape.physicsBody.categoryBitMask = snakeHitCategory;
+    shape.physicsBody.contactTestBitMask = coinHitCategory;
+    shape.physicsBody.collisionBitMask = coinHitCategory;
     
+    
+    coin = [SKShapeNode shapeNodeWithRectOfSize:CGSizeMake(50.0, 50.0)];
+    coin.fillColor = [SKColor yellowColor];
+    coin.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:shapeSize];
+    coin.physicsBody.usesPreciseCollisionDetection = YES;
+    coin.physicsBody.categoryBitMask = coinHitCategory;
+    coin.physicsBody.contactTestBitMask = snakeHitCategory;
+    coin.physicsBody.collisionBitMask = snakeHitCategory;
+    coin.position = CGPointMake(((float)arc4random() / ARC4RANDOM_MAX * (self.frame.size.width - 0)),
+                                ((float)arc4random() / ARC4RANDOM_MAX * (self.frame.size.height - 0)));
+    noCoin = false;
+    
+    [self addChild:coin];
     [self addChild:shape];
     
     //movement = [SKAction moveByX:<#(CGFloat)#> y:<#(CGFloat)#> duration:<#(NSTimeInterval)#>];
@@ -92,9 +124,9 @@ bool moveRight = false;
         
         switch (keyChar) {
             case NSUpArrowFunctionKey:
-                //moveUp = true;
-                movement = [SKAction moveByX:0 y:velo duration: 0];
-                [shape runAction:movement withKey: @"MoveUp"];
+                moveUp = true;
+                //movement = [SKAction moveByX:0 y:velo duration: 0];
+                //[shape runAction:movement withKey: @"MoveUp"];
                 //shape.position = CGPointMake(shape.position.x, shape.position.y + velo);
                 NSLog(@"Hej %f", shape.position.y);
                 break;
@@ -150,6 +182,22 @@ bool moveRight = false;
     }
 }
 
+-(void)didBeginContact:(SKPhysicsContact *)contact
+{
+    SKPhysicsBody *firstBody, *secondBody;
+    
+    firstBody = contact.bodyA;
+    secondBody = contact.bodyB;
+    
+    if(firstBody.categoryBitMask == snakeHitCategory || secondBody.categoryBitMask == snakeHitCategory)
+    {
+        
+        NSLog(@"snake hit the Coin");
+        //setup your methods and other things here
+        
+    }
+}
+
 -(void)update:(CFTimeInterval)currentTime {
     /* Called before each frame is rendered */
     
@@ -167,6 +215,11 @@ bool moveRight = false;
     
     if (moveRight) {
         shape.position = CGPointMake(shape.position.x + velo, shape.position.y);
+    }
+    
+    
+    if (noCoin) {
+        
     }
 }
 

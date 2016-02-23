@@ -25,10 +25,21 @@
  * SOFTWARE.
  */
 
+#ifndef Coin_h
+#define Coin_h
+
 #import <SpriteKit/SpriteKit.h>
 
-@interface GameScene : SKScene <SKPhysicsContactDelegate>
+@interface Coin : SKSpriteNode
 
-- (void)drawGrid:(SKView *)view;
+@property (nonatomic) const int WIDTH;
+@property (nonatomic) const int HEIGHT;
+@property (nonatomic) const float posX;
+@property (nonatomic) const float posY;
+
+-(void) spawnCoin;
 
 @end
+
+
+#endif /* Coin_h */

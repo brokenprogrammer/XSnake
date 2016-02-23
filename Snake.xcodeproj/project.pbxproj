@@ -15,6 +15,7 @@
 		AB7A4CD91C7A35B400CC891C /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB7A4CD71C7A35B400CC891C /* MainMenu.xib */; };
 		AB7A4CE41C7A35B500CC891C /* SnakeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AB7A4CE31C7A35B500CC891C /* SnakeTests.m */; };
 		AB7A4CEF1C7A35B500CC891C /* SnakeUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = AB7A4CEE1C7A35B500CC891C /* SnakeUITests.m */; };
+		AB9B8F4B1C7C9B1D0004EF7C /* Coin.m in Sources */ = {isa = PBXBuildFile; fileRef = AB9B8F4A1C7C9B1D0004EF7C /* Coin.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,8 @@
 		AB7A4CEA1C7A35B500CC891C /* SnakeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SnakeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB7A4CEE1C7A35B500CC891C /* SnakeUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SnakeUITests.m; sourceTree = "<group>"; };
 		AB7A4CF01C7A35B500CC891C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AB9B8F4A1C7C9B1D0004EF7C /* Coin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Coin.m; sourceTree = "<group>"; };
+		AB9B8F4C1C7C9B480004EF7C /* Coin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Coin.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +113,8 @@
 				AB7A4CD71C7A35B400CC891C /* MainMenu.xib */,
 				AB7A4CDA1C7A35B400CC891C /* Info.plist */,
 				AB7A4CCD1C7A35B400CC891C /* Supporting Files */,
+				AB9B8F4A1C7C9B1D0004EF7C /* Coin.m */,
+				AB9B8F4C1C7C9B480004EF7C /* Coin.h */,
 			);
 			path = Snake;
 			sourceTree = "<group>";
@@ -272,6 +277,7 @@
 			files = (
 				AB7A4CCF1C7A35B400CC891C /* main.m in Sources */,
 				AB7A4CD21C7A35B400CC891C /* GameScene.m in Sources */,
+				AB9B8F4B1C7C9B1D0004EF7C /* Coin.m in Sources */,
 				AB7A4CCC1C7A35B400CC891C /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -495,6 +501,7 @@
 				AB7A4CF51C7A35B500CC891C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AB7A4CF61C7A35B500CC891C /* Build configuration list for PBXNativeTarget "SnakeTests" */ = {
 			isa = XCConfigurationList;
@@ -503,6 +510,7 @@
 				AB7A4CF81C7A35B500CC891C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AB7A4CF91C7A35B500CC891C /* Build configuration list for PBXNativeTarget "SnakeUITests" */ = {
 			isa = XCConfigurationList;
@@ -511,6 +519,7 @@
 				AB7A4CFB1C7A35B500CC891C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

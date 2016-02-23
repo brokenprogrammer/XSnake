@@ -25,10 +25,10 @@
  * SOFTWARE.
  */
 
-#import <SpriteKit/SpriteKit.h>
+#import "Coin.h"
 
-@interface GameScene : SKScene <SKPhysicsContactDelegate>
+@implementation Coin
 
-- (void)drawGrid:(SKView *)view;
+
 
 @end
