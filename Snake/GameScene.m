@@ -27,15 +27,17 @@
 #define ARC4RANDOM_MAX 0x100000000
 
 #import "GameScene.h"
+#import "Coin.h"
 
 @implementation GameScene
 static const int snakeHitCategory = 1;
 static const int coinHitCategory = 2;
 
 SKShapeNode *shape;
-SKShapeNode *coin;
+Coin *coinLogic;
+SKShapeNode *gameCoin;
 
-const float velo = 15.0;
+const float velo = 5.0;
 
 SKAction *movement;
 
@@ -55,6 +57,8 @@ bool noCoin = true;
     self.physicsWorld.gravity = CGVectorMake(0, 0);
     self.physicsWorld.contactDelegate = self;
     
+    coinLogic = [[Coin alloc] init];
+    
     SKLabelNode *myLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
     
     myLabel.text = @"Hello, World!";
@@ -72,25 +76,31 @@ bool noCoin = true;
     shape.position = CGPointMake(100.0, 100.0);
     shape.fillColor = [SKColor redColor];
     CGSize shapeSize = CGSizeMake(50, 50);
+    
     shape.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:shapeSize];
+    shape.physicsBody.dynamic = YES;
     shape.physicsBody.usesPreciseCollisionDetection = YES;
     shape.physicsBody.categoryBitMask = snakeHitCategory;
     shape.physicsBody.contactTestBitMask = coinHitCategory;
-    shape.physicsBody.collisionBitMask = coinHitCategory;
+    shape.physicsBody.collisionBitMask = 0;
     
+    gameCoin = [coinLogic createCoin:snakeHitCategory :coinHitCategory :self.frame.size.width :self.frame.size.height];
     
+    /*
     coin = [SKShapeNode shapeNodeWithRectOfSize:CGSizeMake(50.0, 50.0)];
     coin.fillColor = [SKColor yellowColor];
+    
     coin.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:shapeSize];
+    coin.physicsBody.dynamic = YES;
     coin.physicsBody.usesPreciseCollisionDetection = YES;
     coin.physicsBody.categoryBitMask = coinHitCategory;
     coin.physicsBody.contactTestBitMask = snakeHitCategory;
-    coin.physicsBody.collisionBitMask = snakeHitCategory;
+    coin.physicsBody.collisionBitMask = 0;
     coin.position = CGPointMake(((float)arc4random() / ARC4RANDOM_MAX * (self.frame.size.width - 0)),
-                                ((float)arc4random() / ARC4RANDOM_MAX * (self.frame.size.height - 0)));
+                                ((float)arc4random() / ARC4RANDOM_MAX * (self.frame.size.height - 0)));*/
     noCoin = false;
     
-    [self addChild:coin];
+    [self addChild:gameCoin];
     [self addChild:shape];
     
     //movement = [SKAction moveByX:<#(CGFloat)#> y:<#(CGFloat)#> duration:<#(NSTimeInterval)#>];
@@ -128,22 +138,18 @@ bool noCoin = true;
                 //movement = [SKAction moveByX:0 y:velo duration: 0];
                 //[shape runAction:movement withKey: @"MoveUp"];
                 //shape.position = CGPointMake(shape.position.x, shape.position.y + velo);
-                NSLog(@"Hej %f", shape.position.y);
                 break;
             case NSLeftArrowFunctionKey:
                 moveLeft = true;
                 //shape.position = CGPointMake(shape.position.x - velo, shape.position.y);
-                NSLog(@"Hej");
                 break;
             case NSDownArrowFunctionKey:
                 moveDown = true;
                 //shape.position = CGPointMake(shape.position.x, shape.position.y - velo);
-                NSLog(@"Hej");
                 break;
             case NSRightArrowFunctionKey:
                 moveRight = true;
                 //shape.position = CGPointMake(shape.position.x + velo, shape.position.y);
-                NSLog(@"Hej");
                 break;
         }
     }
@@ -161,29 +167,24 @@ bool noCoin = true;
                 moveUp = false;
                 [shape removeActionForKey: @"MoveUp"];
                 //shape.position = CGPointMake(shape.position.x, shape.position.y + velo);
-                NSLog(@"Hej %f", shape.position.y);
                 break;
             case NSLeftArrowFunctionKey:
                 moveLeft = false;
                 //shape.position = CGPointMake(shape.position.x - velo, shape.position.y);
-                NSLog(@"Hej");
                 break;
             case NSDownArrowFunctionKey:
                 moveDown = false;
                 //shape.position = CGPointMake(shape.position.x, shape.position.y - velo);
-                NSLog(@"Hej");
                 break;
             case NSRightArrowFunctionKey:
                 moveRight = false;
                 //shape.position = CGPointMake(shape.position.x + velo, shape.position.y);
-                NSLog(@"Hej");
                 break;
         }
     }
 }
 
--(void)didBeginContact:(SKPhysicsContact *)contact
-{
+-(void)didBeginContact:(SKPhysicsContact *)contact {
     SKPhysicsBody *firstBody, *secondBody;
     
     firstBody = contact.bodyA;
@@ -194,7 +195,10 @@ bool noCoin = true;
         
         NSLog(@"snake hit the Coin");
         //setup your methods and other things here
-        
+        //gameCoin = [coinLogic createCoin:snakeHitCategory :coinHitCategory :self.frame.size.width :self.frame.size.height];
+        [gameCoin removeFromParent];
+        [coinLogic respawnCoin:gameCoin];
+        [self addChild:gameCoin];
     }
 }
 

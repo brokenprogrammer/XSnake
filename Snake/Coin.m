@@ -25,10 +25,50 @@
  * SOFTWARE.
  */
 
+#define ARC4RANDOM_MAX 0x100000000
+
 #import "Coin.h"
 
-@implementation Coin
+@implementation Coin {
+    
+}
 
+-(float) randomPos: (float) min :(float) max {
+    return (float)arc4random() / ARC4RANDOM_MAX * (max - min);
+}
 
+- (SKShapeNode *)createCoin: (int)SnakeCat :(int)CoinCat: (int)screenW :(int)screenH {
+    self.WIDTH = 25;
+    self.HEIGHT = 25;
+    self.SIZE = CGSizeMake(self.WIDTH, self.HEIGHT);
+    self.SCREENWIDTH = screenW;
+    self.SCREENHEIGHT = screenH;
+    
+    SKShapeNode *Coin = [SKShapeNode shapeNodeWithRectOfSize:self.SIZE];
+    Coin.fillColor = [SKColor yellowColor];
+    
+    Coin.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.SIZE];
+    Coin.physicsBody.dynamic = YES;
+    Coin.physicsBody.usesPreciseCollisionDetection = YES;
+    Coin.physicsBody.categoryBitMask = CoinCat;
+    Coin.physicsBody.contactTestBitMask = SnakeCat;
+    Coin.physicsBody.collisionBitMask = 0;
+    Coin.position = CGPointMake([self randomPos:0 :screenW], [self randomPos:0 :screenH]);
+    
+    self.posX = Coin.position.x;
+    self.posY = Coin.position.y;
+    
+    return Coin;
+}
+
+-(void) respawnCoin: (SKShapeNode *)coin{
+    NSLog(@"Brefore: %f", coin.position.x);
+    coin.position = CGPointMake([self randomPos:0 :self.SCREENWIDTH], [self randomPos:0 :self.SCREENHEIGHT]);
+    NSLog(@"After: %f", coin.position.x);
+}
+
+-(void)update:(NSTimeInterval) delta {
+    
+}
 
 @end
