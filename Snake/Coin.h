@@ -30,23 +30,23 @@
 
 #import <SpriteKit/SpriteKit.h>
 
-@interface Coin : SKShapeNode {
+@interface Coin : SKSpriteNode {
     
 }
 
-@property (nonatomic) const int WIDTH;
-@property (nonatomic) const int HEIGHT;
-@property (nonatomic) const CGSize SIZE;
-@property (nonatomic) const int SCREENWIDTH;
-@property (nonatomic) const int SCREENHEIGHT;
-@property (nonatomic) float posX;
-@property (nonatomic) float posY;
+@property (nonatomic) CGFloat coinWidth;
+@property (nonatomic) CGFloat coinHeight;
+@property (nonatomic) CGSize coinSize;
+@property (nonatomic) CGFloat screenWidth;
+@property (nonatomic) CGFloat screenHeight;
+@property float posX;
+@property float posY;
 
-- (SKShapeNode *)createCoin: (int)SnakeCat :(int)CoinCat: (int)screenW :(int)screenH;
+- (id)initWithCollision:  (int)SnakeCat :(int)CoinCat: (CGFloat)screenW :(CGFloat)screenH;
 
 -(float) randomPos: (float) min :(float) max;
 
--(void) respawnCoin: (SKShapeNode *)coin;
+-(void) respawnCoin: (CGFloat)screenW :(CGFloat)screenH;
 
 -(void)update:(NSTimeInterval) delta;
 

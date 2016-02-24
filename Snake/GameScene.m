@@ -33,9 +33,12 @@
 static const int snakeHitCategory = 1;
 static const int coinHitCategory = 2;
 
+static double screenWidth;
+static double screenHeight;
+
 SKShapeNode *shape;
 Coin *coinLogic;
-SKShapeNode *gameCoin;
+//SKShapeNode *gameCoin;
 
 const float velo = 5.0;
 
@@ -46,8 +49,6 @@ bool moveLeft = false;
 bool moveDown = false;
 bool moveRight = false;
 
-bool noCoin = true;
-
 //@TODO Add Action instead of booleans for moving sprite.
 //http://stackoverflow.com/questions/22495285/sprite-kit-collision-detection
 //Fix real collisions, Add classes for snake & Coin.
@@ -57,16 +58,17 @@ bool noCoin = true;
     self.physicsWorld.gravity = CGVectorMake(0, 0);
     self.physicsWorld.contactDelegate = self;
     
-    coinLogic = [[Coin alloc] init];
+    screenWidth = self.frame.size.width;
+    screenHeight = self.frame.size.height;
     
-    SKLabelNode *myLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
+    /*SKLabelNode *myLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
     
     myLabel.text = @"Hello, World!";
     myLabel.fontSize = 45;
     myLabel.fontColor = [SKColor colorWithRed: 255.0 green: 0.0 blue: 0.0 alpha: 1.0];
     myLabel.position = CGPointMake(CGRectGetMidX(self.frame),
                                    CGRectGetMidY(self.frame));
-    [self addChild:myLabel];
+    [self addChild:myLabel];*/
     
     self.backgroundColor = [SKColor colorWithRed: 0.0 green: 0.0 blue: 0.0 alpha: 1.0];
     
@@ -84,23 +86,19 @@ bool noCoin = true;
     shape.physicsBody.contactTestBitMask = coinHitCategory;
     shape.physicsBody.collisionBitMask = 0;
     
-    gameCoin = [coinLogic createCoin:snakeHitCategory :coinHitCategory :self.frame.size.width :self.frame.size.height];
+    //gameCoin = [coinLogic createCoin:snakeHitCategory :coinHitCategory :self.frame.size.width :self.frame.size.height];
+    //coinLogic = [[Coin alloc] initWithCollision:snakeHitCategory :coinHitCategory :self.frame.size.width :self.frame.size.height];
+    coinLogic = [[Coin new] initWithCollision:snakeHitCategory :coinHitCategory :self.frame.size.width :self.frame.size.height];
     
-    /*
-    coin = [SKShapeNode shapeNodeWithRectOfSize:CGSizeMake(50.0, 50.0)];
-    coin.fillColor = [SKColor yellowColor];
+    coinLogic.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(50, 50)];
+    coinLogic.physicsBody.dynamic = YES;
+    coinLogic.physicsBody.usesPreciseCollisionDetection = YES;
+    coinLogic.physicsBody.categoryBitMask = coinHitCategory;
+    coinLogic.physicsBody.contactTestBitMask = snakeHitCategory;
+    coinLogic.physicsBody.collisionBitMask = 0;
+    coinLogic.physicsBody.affectedByGravity = NO;
     
-    coin.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:shapeSize];
-    coin.physicsBody.dynamic = YES;
-    coin.physicsBody.usesPreciseCollisionDetection = YES;
-    coin.physicsBody.categoryBitMask = coinHitCategory;
-    coin.physicsBody.contactTestBitMask = snakeHitCategory;
-    coin.physicsBody.collisionBitMask = 0;
-    coin.position = CGPointMake(((float)arc4random() / ARC4RANDOM_MAX * (self.frame.size.width - 0)),
-                                ((float)arc4random() / ARC4RANDOM_MAX * (self.frame.size.height - 0)));*/
-    noCoin = false;
-    
-    [self addChild:gameCoin];
+    [self addChild:coinLogic];
     [self addChild:shape];
     
     //movement = [SKAction moveByX:<#(CGFloat)#> y:<#(CGFloat)#> duration:<#(NSTimeInterval)#>];
@@ -185,6 +183,7 @@ bool noCoin = true;
 }
 
 -(void)didBeginContact:(SKPhysicsContact *)contact {
+    NSLog(@"snake hit the Coin");
     SKPhysicsBody *firstBody, *secondBody;
     
     firstBody = contact.bodyA;
@@ -195,10 +194,10 @@ bool noCoin = true;
         
         NSLog(@"snake hit the Coin");
         //setup your methods and other things here
-        //gameCoin = [coinLogic createCoin:snakeHitCategory :coinHitCategory :self.frame.size.width :self.frame.size.height];
-        [gameCoin removeFromParent];
-        [coinLogic respawnCoin:gameCoin];
-        [self addChild:gameCoin];
+        //[gameCoin removeFromParent];
+        [coinLogic removeFromParent];
+        [coinLogic respawnCoin:screenWidth :screenHeight];
+        [self addChild:coinLogic];
     }
 }
 
@@ -221,10 +220,6 @@ bool noCoin = true;
         shape.position = CGPointMake(shape.position.x + velo, shape.position.y);
     }
     
-    
-    if (noCoin) {
-        
-    }
 }
 
 -(void)drawGrid:(SKView *)view {
