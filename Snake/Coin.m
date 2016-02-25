@@ -47,17 +47,17 @@
     return (float)arc4random() / ARC4RANDOM_MAX * (max - min);
 }
 
-- (id)initWithCollision:  (int)SnakeCat :(int)CoinCat: (CGFloat)screenW :(CGFloat)screenH {
+-(id)initWithCollision:  (int)SnakeCat :(int)CoinCat: (CGFloat)screenW :(CGFloat)screenH {
     self = [super init];
     if(self)
     {
         SKTexture* CoinTexture1 = [SKTexture textureWithImageNamed:@"Spaceship"];
         
-        self.coinWidth = 25;
+        /*self.coinWidth = 25;
         self.coinHeight = 25;
         self.coinSize = CGSizeMake(self.coinWidth, self.coinHeight);
         self.screenWidth = screenW;
-        self.screenHeight = screenH;
+        self.screenHeight = screenH;*/
         
         self = [Coin spriteNodeWithTexture:CoinTexture1];
         self.name = @"coin";
@@ -71,13 +71,24 @@
         self.posX = self.position.x;
         self.posY = self.position.y;
         
-        NSLog(@"POSX: %f, WIDTH: %i, SHEIGHT: %f", self.posX, self.coinWidth, self.screenHeight);
+        //NSLog(@"POSX: %f, WIDTH: %CGFloat, SHEIGHT: %f", self.posX, self.coinWidth, self.screenHeight);
     }
     return self;
 }
 
--(void) respawnCoin: (CGFloat)screenW :(CGFloat)screenH {
-    self.position = CGPointMake([self randomPos:0 :screenW], [self randomPos:0 :screenH]);
+-(void)setProperties: (CGFloat) screenW :(CGFloat)screenH {
+    self.coinWidth = 25;
+    self.coinHeight = 25;
+    self.coinSize = CGSizeMake(self.coinWidth, self.coinHeight);
+    self.screenWidth = screenW;
+    self.screenHeight = screenH;
+    self.posX = self.position.x;
+    self.posY = self.position.y;
+}
+
+-(void) respawnCoin{
+    //self.position = CGPointMake([self randomPos:0 :screenW], [self randomPos:0 :screenH]);
+    self.position = CGPointMake([self randomPos:0 :self.screenWidth], [self randomPos:0 :self.screenHeight]);
     self.posX = self.position.x;
     self.posY = self.position.y;
     NSLog(@"After: %f", self.position.x);

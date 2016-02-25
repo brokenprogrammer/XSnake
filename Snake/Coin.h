@@ -42,11 +42,13 @@
 @property float posX;
 @property float posY;
 
-- (id)initWithCollision:  (int)SnakeCat :(int)CoinCat: (CGFloat)screenW :(CGFloat)screenH;
+-(id)initWithCollision:  (int)SnakeCat :(int)CoinCat: (CGFloat)screenW :(CGFloat)screenH;
+
+-(void)setProperties: (CGFloat) screenW :(CGFloat)screenH;
 
 -(float) randomPos: (float) min :(float) max;
 
--(void) respawnCoin: (CGFloat)screenW :(CGFloat)screenH;
+-(void) respawnCoin;
 
 -(void)update:(NSTimeInterval) delta;
 

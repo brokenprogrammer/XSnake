@@ -38,7 +38,6 @@ static double screenHeight;
 
 SKShapeNode *shape;
 Coin *coinLogic;
-//SKShapeNode *gameCoin;
 
 const float velo = 5.0;
 
@@ -50,8 +49,7 @@ bool moveDown = false;
 bool moveRight = false;
 
 //@TODO Add Action instead of booleans for moving sprite.
-//http://stackoverflow.com/questions/22495285/sprite-kit-collision-detection
-//Fix real collisions, Add classes for snake & Coin.
+//Fix real collisions, Add classes for snake.
 
 -(void)didMoveToView:(SKView *)view {
     /* Setup your scene here */
@@ -60,15 +58,6 @@ bool moveRight = false;
     
     screenWidth = self.frame.size.width;
     screenHeight = self.frame.size.height;
-    
-    /*SKLabelNode *myLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
-    
-    myLabel.text = @"Hello, World!";
-    myLabel.fontSize = 45;
-    myLabel.fontColor = [SKColor colorWithRed: 255.0 green: 0.0 blue: 0.0 alpha: 1.0];
-    myLabel.position = CGPointMake(CGRectGetMidX(self.frame),
-                                   CGRectGetMidY(self.frame));
-    [self addChild:myLabel];*/
     
     self.backgroundColor = [SKColor colorWithRed: 0.0 green: 0.0 blue: 0.0 alpha: 1.0];
     
@@ -86,17 +75,8 @@ bool moveRight = false;
     shape.physicsBody.contactTestBitMask = coinHitCategory;
     shape.physicsBody.collisionBitMask = 0;
     
-    //gameCoin = [coinLogic createCoin:snakeHitCategory :coinHitCategory :self.frame.size.width :self.frame.size.height];
-    //coinLogic = [[Coin alloc] initWithCollision:snakeHitCategory :coinHitCategory :self.frame.size.width :self.frame.size.height];
-    coinLogic = [[Coin new] initWithCollision:snakeHitCategory :coinHitCategory :self.frame.size.width :self.frame.size.height];
+    [self createCoin];
     
-    coinLogic.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(50, 50)];
-    coinLogic.physicsBody.dynamic = YES;
-    coinLogic.physicsBody.usesPreciseCollisionDetection = YES;
-    coinLogic.physicsBody.categoryBitMask = coinHitCategory;
-    coinLogic.physicsBody.contactTestBitMask = snakeHitCategory;
-    coinLogic.physicsBody.collisionBitMask = 0;
-    coinLogic.physicsBody.affectedByGravity = NO;
     
     [self addChild:coinLogic];
     [self addChild:shape];
@@ -194,9 +174,8 @@ bool moveRight = false;
         
         NSLog(@"snake hit the Coin");
         //setup your methods and other things here
-        //[gameCoin removeFromParent];
         [coinLogic removeFromParent];
-        [coinLogic respawnCoin:screenWidth :screenHeight];
+        [coinLogic respawnCoin];
         [self addChild:coinLogic];
     }
 }
@@ -222,36 +201,18 @@ bool moveRight = false;
     
 }
 
--(void)drawGrid:(SKView *)view {
-    CGSize screenSize = CGSizeMake(CGRectGetMaxX(view.frame), CGRectGetMaxY(view.frame));
+-(void)createCoin {
+    coinLogic = [[Coin new] initWithCollision:snakeHitCategory :coinHitCategory :self.frame.size.width :self.frame.size.height];
     
-    float columns = screenSize.width / 25;
-    float rows = screenSize.height / 25;
+    [coinLogic setProperties:screenWidth :screenHeight];
     
-    NSLog(@"Columns: %f, Rows: %f", columns, rows);
-    NSLog(@"Height: %f, Width: %f", screenSize.height, screenSize.width);
-    
-    for (int x = 0; x < columns; x++) {
-        int pos = x*25;
-        SKShapeNode *yourline = [SKShapeNode node];
-        CGMutablePathRef pathToDraw = CGPathCreateMutable();
-        CGPathMoveToPoint(pathToDraw, NULL, pos, 0.0);
-        CGPathAddLineToPoint(pathToDraw, NULL, pos, screenSize.height);
-        yourline.path = pathToDraw;
-        [yourline setStrokeColor:[SKColor whiteColor]];
-        [self addChild:yourline];
-    }
-    
-    for (int y = 0; y < rows; y++) {
-        int pos = y*25;
-        SKShapeNode *yourline = [SKShapeNode node];
-        CGMutablePathRef pathToDraw = CGPathCreateMutable();
-        CGPathMoveToPoint(pathToDraw, NULL, 0.0, pos);
-        CGPathAddLineToPoint(pathToDraw, NULL, screenSize.width, pos);
-        yourline.path = pathToDraw;
-        [yourline setStrokeColor:[SKColor whiteColor]];
-        [self addChild:yourline];
-    }
+    coinLogic.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(50, 50)];
+    coinLogic.physicsBody.dynamic = YES;
+    coinLogic.physicsBody.usesPreciseCollisionDetection = YES;
+    coinLogic.physicsBody.categoryBitMask = coinHitCategory;
+    coinLogic.physicsBody.contactTestBitMask = snakeHitCategory;
+    coinLogic.physicsBody.collisionBitMask = 0;
+    coinLogic.physicsBody.affectedByGravity = NO;
 }
 
 @end

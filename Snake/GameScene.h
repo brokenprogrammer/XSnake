@@ -29,6 +29,4 @@
 
 @interface GameScene : SKScene <SKPhysicsContactDelegate>
 
-- (void)drawGrid:(SKView *)view;
-
 @end
