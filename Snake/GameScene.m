@@ -39,14 +39,18 @@ static double screenHeight;
 SKShapeNode *shape;
 Coin *coinLogic;
 
-const float velo = 5.0;
+const float veloMAX = 200;
 
 SKAction *movement;
+SKAction *rotation;
 
 bool moveUp = false;
 bool moveLeft = false;
 bool moveDown = false;
 bool moveRight = false;
+
+float snakeVeloX;
+float snakeVeloY;
 
 //@TODO Add Action instead of booleans for moving sprite.
 //Fix real collisions, Add classes for snake.
@@ -75,21 +79,22 @@ bool moveRight = false;
     shape.physicsBody.contactTestBitMask = coinHitCategory;
     shape.physicsBody.collisionBitMask = 0;
     
+    snakeVeloX = 0;
+    snakeVeloY = 0;
+    rotation = [SKAction rotateByAngle:M_PI_4/6 duration:0];
+    
     [self createCoin];
     
     
     [self addChild:coinLogic];
     [self addChild:shape];
     
-    //movement = [SKAction moveByX:<#(CGFloat)#> y:<#(CGFloat)#> duration:<#(NSTimeInterval)#>];
-    
-    //[self drawGrid:view];
 }
 
--(void)mouseDown:(NSEvent *)theEvent {
-     /* Called when a mouse click occurs */
+/*-(void)mouseDown:(NSEvent *)theEvent {
+      Called when a mouse click occurs */
     
-    CGPoint location = [theEvent locationInNode:self];
+  /*  CGPoint location = [theEvent locationInNode:self];
     
     SKSpriteNode *sprite = [SKSpriteNode spriteNodeWithImageNamed:@"Spaceship"];
     
@@ -101,7 +106,7 @@ bool moveRight = false;
     [sprite runAction:[SKAction repeatActionForever:action]];
     
     [self addChild:sprite];
-}
+}*/
 
 -(void)keyDown:(NSEvent *)theEvent {
     NSString *key = [theEvent charactersIgnoringModifiers];
@@ -119,6 +124,7 @@ bool moveRight = false;
                 break;
             case NSLeftArrowFunctionKey:
                 moveLeft = true;
+                //[shape runAction:rotation withKey:@"Left"];
                 //shape.position = CGPointMake(shape.position.x - velo, shape.position.y);
                 break;
             case NSDownArrowFunctionKey:
@@ -149,6 +155,7 @@ bool moveRight = false;
             case NSLeftArrowFunctionKey:
                 moveLeft = false;
                 //shape.position = CGPointMake(shape.position.x - velo, shape.position.y);
+                //[shape removeActionForKey: @"Left"];
                 break;
             case NSDownArrowFunctionKey:
                 moveDown = false;
@@ -183,20 +190,52 @@ bool moveRight = false;
 -(void)update:(CFTimeInterval)currentTime {
     /* Called before each frame is rendered */
     
-    if (moveUp) {
+    /*if (moveUp) {
         shape.position = CGPointMake(shape.position.x, shape.position.y + velo);
-    }
+    }*/
+    
+    shape.physicsBody.velocity = CGVectorMake(snakeVeloX, 0);
     
     if (moveLeft) {
-        shape.position = CGPointMake(shape.position.x - velo, shape.position.y);
+        //shape.position = CGPointMake(shape.position.x - velo, shape.position.y);
+        [shape runAction:rotation withKey:@"Left"];
+        NSLog(@"Current Angle: %f", shape.zRotation);
+        
+        snakeVeloX -= 10;
+        snakeVeloY += shape.zRotation * 100;
+        
+        if (snakeVeloX >= veloMAX) {
+            snakeVeloX = veloMAX;
+        } else if (snakeVeloX <= -veloMAX) {
+            snakeVeloX = -veloMAX;
+        }
+        
+        if (snakeVeloY <= -200) {
+            snakeVeloY = -200;
+        }
     }
     
-    if (moveDown) {
+    /*if (moveDown) {
         shape.position = CGPointMake(shape.position.x, shape.position.y - velo);
-    }
+    }*/
     
     if (moveRight) {
-        shape.position = CGPointMake(shape.position.x + velo, shape.position.y);
+        //shape.position = CGPointMake(shape.position.x + velo, shape.position.y);
+        [shape runAction:rotation withKey:@"Left"];
+        NSLog(@"Current Angle: %f", shape.zRotation);
+        
+        snakeVeloX += 10;
+        snakeVeloY += shape.zRotation * 100;
+        
+        if (snakeVeloX >= veloMAX) {
+            snakeVeloX = veloMAX;
+        } else if (snakeVeloX <= -veloMAX) {
+            snakeVeloX = -veloMAX;
+        }
+        
+        if (snakeVeloY <= -200) {
+            snakeVeloY = -200;
+        }
     }
     
 }
