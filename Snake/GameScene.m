@@ -25,6 +25,7 @@
  * SOFTWARE.
  */
 #define ARC4RANDOM_MAX 0x100000000
+#define DEGREES_TO_RADIANS( degrees ) ( ( degrees ) / 180.0 * M_PI )
 
 #import "GameScene.h"
 #import "Coin.h"
@@ -39,10 +40,11 @@ static double screenHeight;
 SKShapeNode *shape;
 Coin *coinLogic;
 
-const float veloMAX = 200;
+const float veloMAX = 100;
 
 SKAction *movement;
 SKAction *rotation;
+SKAction *rotation2;
 
 bool moveUp = false;
 bool moveLeft = false;
@@ -51,6 +53,7 @@ bool moveRight = false;
 
 float snakeVeloX;
 float snakeVeloY;
+float angle;
 
 //@TODO Add Action instead of booleans for moving sprite.
 //Fix real collisions, Add classes for snake.
@@ -68,7 +71,7 @@ float snakeVeloY;
     shape = [SKShapeNode shapeNodeWithRectOfSize:CGSizeMake(50.0, 50.0)];
     shape.strokeColor = [SKColor redColor];
     shape.lineWidth = 3;
-    shape.position = CGPointMake(100.0, 100.0);
+    shape.position = CGPointMake(400, 350);
     shape.fillColor = [SKColor redColor];
     CGSize shapeSize = CGSizeMake(50, 50);
     
@@ -80,8 +83,10 @@ float snakeVeloY;
     shape.physicsBody.collisionBitMask = 0;
     
     snakeVeloX = 0;
-    snakeVeloY = 0;
-    rotation = [SKAction rotateByAngle:M_PI_4/6 duration:0];
+    angle = 0;
+    snakeVeloY = veloMAX;
+    rotation = [SKAction rotateByAngle:M_PI_4/20 duration:0];
+    rotation2 = [SKAction rotateByAngle:-(M_PI_4/20) duration:0];
     
     [self createCoin];
     
@@ -190,54 +195,35 @@ float snakeVeloY;
 -(void)update:(CFTimeInterval)currentTime {
     /* Called before each frame is rendered */
     
-    /*if (moveUp) {
-        shape.position = CGPointMake(shape.position.x, shape.position.y + velo);
-    }*/
+    //snakeVeloX = cosf(DEGREES_TO_RADIANS(shape.zRotation * 10));
+    //snakeVeloY = sinf(DEGREES_TO_RADIANS(shape.zRotation * 10));
     
-    shape.physicsBody.velocity = CGVectorMake(snakeVeloX, 0);
+    //snakeVeloX *= veloMAX;
+    //snakeVeloY *= veloMAX;
+    
+    //shape.physicsBody.velocity = CGVectorMake(snakeVeloX, snakeVeloY);
+    
+    float newXPosition;
+    float newYPosition;
+    
+    newXPosition = shape.position.x + sinf(DEGREES_TO_RADIANS(shape.zRotation / 360 * veloMAX * currentTime));
+    newYPosition = shape.position.y - cosf(DEGREES_TO_RADIANS(shape.zRotation / 360 * veloMAX * currentTime));
+    
+    shape.position = CGPointMake(newXPosition, newYPosition);
     
     if (moveLeft) {
         //shape.position = CGPointMake(shape.position.x - velo, shape.position.y);
-        [shape runAction:rotation withKey:@"Left"];
-        NSLog(@"Current Angle: %f", shape.zRotation);
-        
-        snakeVeloX -= 10;
-        snakeVeloY += shape.zRotation * 100;
-        
-        if (snakeVeloX >= veloMAX) {
-            snakeVeloX = veloMAX;
-        } else if (snakeVeloX <= -veloMAX) {
-            snakeVeloX = -veloMAX;
-        }
-        
-        if (snakeVeloY <= -200) {
-            snakeVeloY = -200;
-        }
+        //[shape runAction:rotation withKey:@"Left"];
+        angle++;
+        shape.zRotation = angle / 360;
     }
-    
-    /*if (moveDown) {
-        shape.position = CGPointMake(shape.position.x, shape.position.y - velo);
-    }*/
     
     if (moveRight) {
         //shape.position = CGPointMake(shape.position.x + velo, shape.position.y);
-        [shape runAction:rotation withKey:@"Left"];
-        NSLog(@"Current Angle: %f", shape.zRotation);
-        
-        snakeVeloX += 10;
-        snakeVeloY += shape.zRotation * 100;
-        
-        if (snakeVeloX >= veloMAX) {
-            snakeVeloX = veloMAX;
-        } else if (snakeVeloX <= -veloMAX) {
-            snakeVeloX = -veloMAX;
-        }
-        
-        if (snakeVeloY <= -200) {
-            snakeVeloY = -200;
-        }
+        //[shape runAction:rotation2 withKey:@"Left"];
+        angle--;
+        shape.zRotation = angle / 360;
     }
-    
 }
 
 -(void)createCoin {
