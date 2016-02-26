@@ -83,7 +83,7 @@ float angle;
     shape.physicsBody.collisionBitMask = 0;
     
     snakeVeloX = 0;
-    angle = 0;
+    angle = 1;
     snakeVeloY = veloMAX;
     rotation = [SKAction rotateByAngle:M_PI_4/20 duration:0];
     rotation2 = [SKAction rotateByAngle:-(M_PI_4/20) duration:0];
@@ -206,24 +206,29 @@ float angle;
     float newXPosition;
     float newYPosition;
     
-    newXPosition = shape.position.x + sinf(DEGREES_TO_RADIANS(shape.zRotation / 360 * veloMAX * currentTime));
-    newYPosition = shape.position.y - cosf(DEGREES_TO_RADIANS(shape.zRotation / 360 * veloMAX * currentTime));
+    newXPosition = shape.position.x - sinf(DEGREES_TO_RADIANS(shape.zRotation * veloMAX));
+    newYPosition = shape.position.y + cosf(DEGREES_TO_RADIANS(shape.zRotation * veloMAX));
     
     shape.position = CGPointMake(newXPosition, newYPosition);
     
     if (moveLeft) {
         //shape.position = CGPointMake(shape.position.x - velo, shape.position.y);
         //[shape runAction:rotation withKey:@"Left"];
-        angle++;
-        shape.zRotation = angle / 360;
+        //angle += 1;
+        shape.zRotation = shape.zRotation + DEGREES_TO_RADIANS(2);
+        //angle /= M_PI;
     }
     
     if (moveRight) {
         //shape.position = CGPointMake(shape.position.x + velo, shape.position.y);
         //[shape runAction:rotation2 withKey:@"Left"];
-        angle--;
-        shape.zRotation = angle / 360;
+        //angle-= 1;
+        //shape.zRotation = angle / 360;
+        shape.zRotation = shape.zRotation - DEGREES_TO_RADIANS(2);
+        //angle /= M_PI;
     }
+    
+    NSLog(@"Angle: %f", angle);
 }
 
 -(void)createCoin {
