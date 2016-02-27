@@ -34,13 +34,14 @@
 static const int snakeHitCategory = 1;
 static const int coinHitCategory = 2;
 
+static const int rotateSpeed = 2;
+static const int snakeSpeed = 2;
+
 static double screenWidth;
 static double screenHeight;
 
-SKShapeNode *shape;
+SKSpriteNode *shape;
 Coin *coinLogic;
-
-const float veloMAX = 100;
 
 SKAction *movement;
 SKAction *rotation;
@@ -51,8 +52,6 @@ bool moveLeft = false;
 bool moveDown = false;
 bool moveRight = false;
 
-float snakeVeloX;
-float snakeVeloY;
 float angle;
 
 //@TODO Add Action instead of booleans for moving sprite.
@@ -68,11 +67,12 @@ float angle;
     
     self.backgroundColor = [SKColor colorWithRed: 0.0 green: 0.0 blue: 0.0 alpha: 1.0];
     
-    shape = [SKShapeNode shapeNodeWithRectOfSize:CGSizeMake(50.0, 50.0)];
-    shape.strokeColor = [SKColor redColor];
-    shape.lineWidth = 3;
+    //shape = [SKShapeNode shapeNodeWithRectOfSize:CGSizeMake(50.0, 50.0)];
+    //shape.strokeColor = [SKColor redColor];
+    //shape.lineWidth = 3;
+    shape = [SKSpriteNode spriteNodeWithImageNamed:@"Spaceship"];
     shape.position = CGPointMake(400, 350);
-    shape.fillColor = [SKColor redColor];
+    //shape.fillColor = [SKColor redColor];
     CGSize shapeSize = CGSizeMake(50, 50);
     
     shape.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:shapeSize];
@@ -82,9 +82,7 @@ float angle;
     shape.physicsBody.contactTestBitMask = coinHitCategory;
     shape.physicsBody.collisionBitMask = 0;
     
-    snakeVeloX = 0;
     angle = 1;
-    snakeVeloY = veloMAX;
     rotation = [SKAction rotateByAngle:M_PI_4/20 duration:0];
     rotation2 = [SKAction rotateByAngle:-(M_PI_4/20) duration:0];
     
@@ -123,22 +121,15 @@ float angle;
         switch (keyChar) {
             case NSUpArrowFunctionKey:
                 moveUp = true;
-                //movement = [SKAction moveByX:0 y:velo duration: 0];
-                //[shape runAction:movement withKey: @"MoveUp"];
-                //shape.position = CGPointMake(shape.position.x, shape.position.y + velo);
                 break;
             case NSLeftArrowFunctionKey:
                 moveLeft = true;
-                //[shape runAction:rotation withKey:@"Left"];
-                //shape.position = CGPointMake(shape.position.x - velo, shape.position.y);
                 break;
             case NSDownArrowFunctionKey:
                 moveDown = true;
-                //shape.position = CGPointMake(shape.position.x, shape.position.y - velo);
                 break;
             case NSRightArrowFunctionKey:
                 moveRight = true;
-                //shape.position = CGPointMake(shape.position.x + velo, shape.position.y);
                 break;
         }
     }
@@ -155,20 +146,15 @@ float angle;
             case NSUpArrowFunctionKey:
                 moveUp = false;
                 [shape removeActionForKey: @"MoveUp"];
-                //shape.position = CGPointMake(shape.position.x, shape.position.y + velo);
                 break;
             case NSLeftArrowFunctionKey:
                 moveLeft = false;
-                //shape.position = CGPointMake(shape.position.x - velo, shape.position.y);
-                //[shape removeActionForKey: @"Left"];
                 break;
             case NSDownArrowFunctionKey:
                 moveDown = false;
-                //shape.position = CGPointMake(shape.position.x, shape.position.y - velo);
                 break;
             case NSRightArrowFunctionKey:
                 moveRight = false;
-                //shape.position = CGPointMake(shape.position.x + velo, shape.position.y);
                 break;
         }
     }
@@ -195,37 +181,23 @@ float angle;
 -(void)update:(CFTimeInterval)currentTime {
     /* Called before each frame is rendered */
     
-    //snakeVeloX = cosf(DEGREES_TO_RADIANS(shape.zRotation * 10));
-    //snakeVeloY = sinf(DEGREES_TO_RADIANS(shape.zRotation * 10));
-    
-    //snakeVeloX *= veloMAX;
-    //snakeVeloY *= veloMAX;
-    
-    //shape.physicsBody.velocity = CGVectorMake(snakeVeloX, snakeVeloY);
-    
     float newXPosition;
     float newYPosition;
     
-    newXPosition = shape.position.x - sinf(DEGREES_TO_RADIANS(shape.zRotation * veloMAX));
-    newYPosition = shape.position.y + cosf(DEGREES_TO_RADIANS(shape.zRotation * veloMAX));
+    //ABS(angle);
+    newXPosition = shape.position.x - sinf(DEGREES_TO_RADIANS(angle)) * snakeSpeed;
+    newYPosition = shape.position.y + cosf(DEGREES_TO_RADIANS(angle)) * snakeSpeed;
     
     shape.position = CGPointMake(newXPosition, newYPosition);
     
     if (moveLeft) {
-        //shape.position = CGPointMake(shape.position.x - velo, shape.position.y);
-        //[shape runAction:rotation withKey:@"Left"];
-        //angle += 1;
-        shape.zRotation = shape.zRotation + DEGREES_TO_RADIANS(2);
-        //angle /= M_PI;
+        angle += rotateSpeed;
+        shape.zRotation = shape.zRotation + DEGREES_TO_RADIANS(rotateSpeed);
     }
     
     if (moveRight) {
-        //shape.position = CGPointMake(shape.position.x + velo, shape.position.y);
-        //[shape runAction:rotation2 withKey:@"Left"];
-        //angle-= 1;
-        //shape.zRotation = angle / 360;
-        shape.zRotation = shape.zRotation - DEGREES_TO_RADIANS(2);
-        //angle /= M_PI;
+        angle-= rotateSpeed;
+        shape.zRotation = shape.zRotation - DEGREES_TO_RADIANS(rotateSpeed);
     }
     
     NSLog(@"Angle: %f", angle);
