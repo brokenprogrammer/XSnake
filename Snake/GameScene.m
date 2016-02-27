@@ -29,6 +29,7 @@
 
 #import "GameScene.h"
 #import "Coin.h"
+#import "Snake.h"
 
 @implementation GameScene
 static const int snakeHitCategory = 1;
@@ -40,8 +41,9 @@ static const int snakeSpeed = 2;
 static double screenWidth;
 static double screenHeight;
 
-SKSpriteNode *shape;
+//SKSpriteNode *shape;
 Coin *coinLogic;
+Snake *snake;
 
 SKAction *movement;
 SKAction *rotation;
@@ -53,9 +55,6 @@ bool moveDown = false;
 bool moveRight = false;
 
 float angle;
-
-//@TODO Add Action instead of booleans for moving sprite.
-//Fix real collisions, Add classes for snake.
 
 -(void)didMoveToView:(SKView *)view {
     /* Setup your scene here */
@@ -70,7 +69,7 @@ float angle;
     //shape = [SKShapeNode shapeNodeWithRectOfSize:CGSizeMake(50.0, 50.0)];
     //shape.strokeColor = [SKColor redColor];
     //shape.lineWidth = 3;
-    shape = [SKSpriteNode spriteNodeWithImageNamed:@"Spaceship"];
+    /*shape = [SKSpriteNode spriteNodeWithImageNamed:@"Spaceship"];
     shape.position = CGPointMake(400, 350);
     //shape.fillColor = [SKColor redColor];
     CGSize shapeSize = CGSizeMake(50, 50);
@@ -80,17 +79,18 @@ float angle;
     shape.physicsBody.usesPreciseCollisionDetection = YES;
     shape.physicsBody.categoryBitMask = snakeHitCategory;
     shape.physicsBody.contactTestBitMask = coinHitCategory;
-    shape.physicsBody.collisionBitMask = 0;
+    shape.physicsBody.collisionBitMask = 0;*/
     
     angle = 1;
     rotation = [SKAction rotateByAngle:M_PI_4/20 duration:0];
     rotation2 = [SKAction rotateByAngle:-(M_PI_4/20) duration:0];
     
+    [self createSnake];
     [self createCoin];
     
     
     [self addChild:coinLogic];
-    [self addChild:shape];
+    [self addChild:snake];
     
 }
 
@@ -145,7 +145,7 @@ float angle;
         switch (keyChar) {
             case NSUpArrowFunctionKey:
                 moveUp = false;
-                [shape removeActionForKey: @"MoveUp"];
+                //[shape removeActionForKey: @"MoveUp"];
                 break;
             case NSLeftArrowFunctionKey:
                 moveLeft = false;
@@ -185,19 +185,19 @@ float angle;
     float newYPosition;
     
     //ABS(angle);
-    newXPosition = shape.position.x - sinf(DEGREES_TO_RADIANS(angle)) * snakeSpeed;
-    newYPosition = shape.position.y + cosf(DEGREES_TO_RADIANS(angle)) * snakeSpeed;
+    newXPosition = snake.position.x - sinf(DEGREES_TO_RADIANS(angle)) * snakeSpeed;
+    newYPosition = snake.position.y + cosf(DEGREES_TO_RADIANS(angle)) * snakeSpeed;
     
-    shape.position = CGPointMake(newXPosition, newYPosition);
+    snake.position = CGPointMake(newXPosition, newYPosition);
     
     if (moveLeft) {
         angle += rotateSpeed;
-        shape.zRotation = shape.zRotation + DEGREES_TO_RADIANS(rotateSpeed);
+        snake.zRotation = snake.zRotation + DEGREES_TO_RADIANS(rotateSpeed);
     }
     
     if (moveRight) {
         angle-= rotateSpeed;
-        shape.zRotation = shape.zRotation - DEGREES_TO_RADIANS(rotateSpeed);
+        snake.zRotation = snake.zRotation - DEGREES_TO_RADIANS(rotateSpeed);
     }
     
     NSLog(@"Angle: %f", angle);
@@ -215,6 +215,12 @@ float angle;
     coinLogic.physicsBody.contactTestBitMask = snakeHitCategory;
     coinLogic.physicsBody.collisionBitMask = 0;
     coinLogic.physicsBody.affectedByGravity = NO;
+}
+
+-(void)createSnake {
+    snake = [[Snake new] initWithCollision:snakeHitCategory :coinHitCategory];
+    
+    [snake setProperties:screenWidth :screenHeight];
 }
 
 @end

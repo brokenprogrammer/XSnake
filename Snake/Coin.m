@@ -53,12 +53,6 @@
     {
         SKTexture* CoinTexture1 = [SKTexture textureWithImageNamed:@"Spaceship"];
         
-        /*self.coinWidth = 25;
-        self.coinHeight = 25;
-        self.coinSize = CGSizeMake(self.coinWidth, self.coinHeight);
-        self.screenWidth = screenW;
-        self.screenHeight = screenH;*/
-        
         self = [Coin spriteNodeWithTexture:CoinTexture1];
         self.name = @"coin";
         self.userInteractionEnabled = YES;
