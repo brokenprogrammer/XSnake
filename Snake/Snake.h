@@ -43,7 +43,8 @@
 -(id)initWithCollision:  (int)SnakeCat :(int)CoinCat;
 -(void)setProperties: (CGFloat) screenW :(CGFloat)screenH;
 -(void)update:(NSTimeInterval) delta;
-
+-(void)addSnakePart: (Snake*) newSnake;
+-(void)updateSnakeParts: (CGFloat) lastX :(CGFloat) lastY;
 @end
 
 #endif /* Snake_h */

@@ -145,7 +145,6 @@ float angle;
         switch (keyChar) {
             case NSUpArrowFunctionKey:
                 moveUp = false;
-                //[shape removeActionForKey: @"MoveUp"];
                 break;
             case NSLeftArrowFunctionKey:
                 moveLeft = false;
@@ -173,6 +172,14 @@ float angle;
         NSLog(@"snake hit the Coin");
         //setup your methods and other things here
         [coinLogic removeFromParent];
+        
+        //Make snake longer
+        Snake *newSnake = [[Snake new] initWithCollision:snakeHitCategory :coinHitCategory];
+        [newSnake setProperties:screenWidth :screenHeight];
+        newSnake.position = CGPointMake(snake.position.x - 25, snake.position.y - 25);
+        [snake addSnakePart:newSnake];
+        [self addChild:newSnake];
+        
         [coinLogic respawnCoin];
         [self addChild:coinLogic];
     }
@@ -200,6 +207,7 @@ float angle;
         snake.zRotation = snake.zRotation - DEGREES_TO_RADIANS(rotateSpeed);
     }
     
+    [snake updateSnakeParts:snake.position.x :snake.position.y];
     NSLog(@"Angle: %f", angle);
 }
 

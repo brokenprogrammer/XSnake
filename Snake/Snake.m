@@ -31,6 +31,8 @@
     
 }
 
+NSMutableArray *snakeParts;
+
 -(id)initWithCollision:  (int)SnakeCat :(int)CoinCat{
     self = [super init];
     
@@ -49,6 +51,8 @@
         self.physicsBody.categoryBitMask = SnakeCat;
         self.physicsBody.contactTestBitMask = CoinCat;
         self.physicsBody.collisionBitMask = 0;
+        
+        snakeParts = [NSMutableArray array];
     }
     
     return self;
@@ -62,5 +66,34 @@
     self.screenHeight = screenH;
 }
 
+-(void)update:(NSTimeInterval) delta {
+    
+}
+
+-(void)addSnakePart: (Snake*) newSnake {
+    [snakeParts addObject:newSnake];
+}
+
+-(void)updateSnakeParts: (CGFloat) lastX :(CGFloat) lastY {
+    if ([snakeParts count] > 0) {
+        Snake *thisSnake = snakeParts[0];
+    
+        CGFloat oldX = thisSnake.position.x;
+        CGFloat oldY = thisSnake.position.y;
+    
+        thisSnake.position = CGPointMake(lastX, lastY);
+        for (int x = 1; x < [snakeParts count]; x++) {
+            Snake *currSnake = snakeParts[x];
+        
+            CGFloat thisX = currSnake.position.x;
+            CGFloat thisY = currSnake.position.y;
+        
+            currSnake.position = CGPointMake(oldX, oldY);
+        
+            oldX = thisX;
+            oldY = thisY;
+        }
+    }
+}
 
 @end
