@@ -39,6 +39,7 @@
 @property (nonatomic) CGSize snakeSize;
 @property (nonatomic) CGFloat screenWidth;
 @property (nonatomic) CGFloat screenHeight;
+@property (nonatomic) NSMutableArray* snakeParts;
 
 -(id)initWithCollision:  (int)SnakeCat :(int)CoinCat;
 -(void)setProperties: (CGFloat) screenW :(CGFloat)screenH;

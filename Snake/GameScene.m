@@ -174,11 +174,7 @@ float angle;
         [coinLogic removeFromParent];
         
         //Make snake longer
-        Snake *newSnake = [[Snake new] initWithCollision:snakeHitCategory :coinHitCategory];
-        [newSnake setProperties:screenWidth :screenHeight];
-        newSnake.position = CGPointMake(snake.position.x - 25, snake.position.y - 25);
-        [snake addSnakePart:newSnake];
-        [self addChild:newSnake];
+        [self newSnake];
         
         [coinLogic respawnCoin];
         [self addChild:coinLogic];
@@ -229,6 +225,15 @@ float angle;
     snake = [[Snake new] initWithCollision:snakeHitCategory :coinHitCategory];
     
     [snake setProperties:screenWidth :screenHeight];
+}
+
+-(void)newSnake {
+    Snake *newSnake = [[Snake new] initWithCollision:snakeHitCategory :coinHitCategory];
+    [newSnake setProperties:screenWidth :screenHeight];
+    newSnake.position = CGPointMake(snake.position.x - 25, snake.position.y - 25);
+    [[snake snakeParts] addObject:newSnake];
+    [snake addSnakePart:newSnake];
+    [self addChild:newSnake];
 }
 
 @end
