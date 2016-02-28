@@ -83,14 +83,14 @@
         CGFloat oldX = thisSnake.position.x;
         CGFloat oldY = thisSnake.position.y;
     
-        thisSnake.position = CGPointMake(lastX * 1.1, lastY * 1.1);
+        thisSnake.position = CGPointMake(lastX * 0.9, lastY * 0.9);
         for (int x = 1; x < [self.snakeParts count]; x++) {
             Snake *currSnake = self.snakeParts[x];
         
             CGFloat thisX = currSnake.position.x;
             CGFloat thisY = currSnake.position.y;
         
-            currSnake.position = CGPointMake(oldX, oldY);
+            currSnake.position = CGPointMake(oldX * 0.9, oldY * 0.9);
         
             oldX = thisX;
             oldY = thisY;

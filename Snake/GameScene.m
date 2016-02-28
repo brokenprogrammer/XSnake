@@ -230,7 +230,8 @@ float angle;
 -(void)newSnake {
     Snake *newSnake = [[Snake new] initWithCollision:snakeHitCategory :coinHitCategory];
     [newSnake setProperties:screenWidth :screenHeight];
-    newSnake.position = CGPointMake(snake.position.x - 25, snake.position.y - 25);
+    newSnake.position = CGPointMake(snake.position.x * 0.9, snake.position.y * 0.9);
+    newSnake.zRotation = snake.zRotation;
     [[snake snakeParts] addObject:newSnake];
     [snake addSnakePart:newSnake];
     [self addChild:newSnake];
