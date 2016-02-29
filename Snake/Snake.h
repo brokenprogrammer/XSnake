@@ -45,7 +45,7 @@
 -(void)setProperties: (CGFloat) screenW :(CGFloat)screenH;
 -(void)update:(NSTimeInterval) delta;
 -(void)addSnakePart: (Snake*) newSnake;
--(void)updateSnakeParts: (CGFloat) lastX :(CGFloat) lastY;
+-(void)updateSnakeParts: (CGFloat) lastX :(CGFloat) lastY :(CGFloat)lastRotation;
 @end
 
 #endif /* Snake_h */

@@ -25,6 +25,8 @@
  * SOFTWARE.
  */
 
+#define DEGREES_TO_RADIANS( degrees ) ( ( degrees ) / 180.0 * M_PI )
+
 #import "Snake.h"
 
 @implementation Snake {
@@ -76,21 +78,39 @@
     NSLog(@"snake parts: %lu", (unsigned long)[self.snakeParts count]);
 }
 
--(void)updateSnakeParts: (CGFloat) lastX :(CGFloat) lastY {
+-(void)updateSnakeParts: (CGFloat) lastX :(CGFloat) lastY :(CGFloat)lastRotation{
     if ([self.snakeParts count] > 0) {
         Snake *thisSnake = self.snakeParts[0];
-    
+        
+        CGFloat oldRot = thisSnake.zRotation;
         CGFloat oldX = thisSnake.position.x;
         CGFloat oldY = thisSnake.position.y;
-    
-        thisSnake.position = CGPointMake(lastX * 0.9, lastY * 0.9);
+        
+        CGFloat dX = lastX - thisSnake.position.x;
+        CGFloat dY = lastY - thisSnake.position.y;
+        
+        CGFloat dest = atan2f(dY, dX);
+        //dest = dest * 180 / M_PI;
+        
+        //thisSnake.position = CGPointMake(lastX * 0.9, lastY * 0.9);
+        
+        thisSnake.zRotation = dest;
+        
+        float newXPosition;
+        float newYPosition;
+        newXPosition = thisSnake.position.x + sinf(dest) * 2;
+        newYPosition = thisSnake.position.y - cosf(dest) * 2;
+        
+        thisSnake.position = CGPointMake(newXPosition, newXPosition);
+        
+        
         for (int x = 1; x < [self.snakeParts count]; x++) {
             Snake *currSnake = self.snakeParts[x];
         
             CGFloat thisX = currSnake.position.x;
             CGFloat thisY = currSnake.position.y;
         
-            currSnake.position = CGPointMake(oldX * 0.9, oldY * 0.9);
+            //currSnake.position = CGPointMake(oldX * 0.9, oldY * 0.9);
         
             oldX = thisX;
             oldY = thisY;

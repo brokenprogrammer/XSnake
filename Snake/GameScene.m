@@ -203,7 +203,7 @@ float angle;
         snake.zRotation = snake.zRotation - DEGREES_TO_RADIANS(rotateSpeed);
     }
     
-    [snake updateSnakeParts:snake.position.x :snake.position.y];
+    [snake updateSnakeParts:snake.position.x :snake.position.y :angle];
     NSLog(@"Angle: %f", angle);
 }
 
@@ -230,7 +230,8 @@ float angle;
 -(void)newSnake {
     Snake *newSnake = [[Snake new] initWithCollision:snakeHitCategory :coinHitCategory];
     [newSnake setProperties:screenWidth :screenHeight];
-    newSnake.position = CGPointMake(snake.position.x * 0.9, snake.position.y * 0.9);
+    newSnake.position = CGPointMake(snake.position.x - sinf(DEGREES_TO_RADIANS(angle)) * -1,
+                                    snake.position.y + cosf(DEGREES_TO_RADIANS(angle)) * -1);
     newSnake.zRotation = snake.zRotation;
     [[snake snakeParts] addObject:newSnake];
     [snake addSnakePart:newSnake];
