@@ -90,19 +90,15 @@
         CGFloat dY = lastY - thisSnake.position.y;
         
         CGFloat dest = atan2f(dY, dX);
-        //dest = dest * 180 / M_PI;
-        
-        //thisSnake.position = CGPointMake(lastX * 0.9, lastY * 0.9);
         
         thisSnake.zRotation = dest;
         
         float newXPosition;
         float newYPosition;
-        newXPosition = thisSnake.position.x + sinf(dest) * 2;
-        newYPosition = thisSnake.position.y - cosf(dest) * 2;
+        newXPosition = thisSnake.position.x + cosf(dest) * 1;
+        newYPosition = thisSnake.position.y + sinf(dest) * 1;
         
-        thisSnake.position = CGPointMake(newXPosition, newXPosition);
-        
+        thisSnake.position = CGPointMake(newXPosition, newYPosition);
         
         for (int x = 1; x < [self.snakeParts count]; x++) {
             Snake *currSnake = self.snakeParts[x];
@@ -110,8 +106,16 @@
             CGFloat thisX = currSnake.position.x;
             CGFloat thisY = currSnake.position.y;
         
-            //currSnake.position = CGPointMake(oldX * 0.9, oldY * 0.9);
-        
+            CGFloat deltaX = oldX - currSnake.position.x;
+            CGFloat deltaY = oldY - currSnake.position.y;
+            
+            CGFloat destination = atan2(deltaY, deltaX);
+            
+            currSnake.zRotation = destination;
+            
+            currSnake.position = CGPointMake(currSnake.position.x + cosf(destination) * 1,
+                                             currSnake.position.y + sinf(destination) * 1);
+            
             oldX = thisX;
             oldY = thisY;
             NSLog(@"X: %i", x);
