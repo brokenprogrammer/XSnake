@@ -93,13 +93,14 @@
         
         thisSnake.zRotation = dest;
         
+        if (sqrt((dX * dX) + (dY * dY)) > 50) {
         float newXPosition;
         float newYPosition;
-        newXPosition = thisSnake.position.x + cosf(dest) * 1;
-        newYPosition = thisSnake.position.y + sinf(dest) * 1;
+        newXPosition = thisSnake.position.x + cosf(dest) * 2;
+        newYPosition = thisSnake.position.y + sinf(dest) * 2;
         
         thisSnake.position = CGPointMake(newXPosition, newYPosition);
-        
+        }
         for (int x = 1; x < [self.snakeParts count]; x++) {
             Snake *currSnake = self.snakeParts[x];
         
@@ -112,10 +113,10 @@
             CGFloat destination = atan2(deltaY, deltaX);
             
             currSnake.zRotation = destination;
-            
-            currSnake.position = CGPointMake(currSnake.position.x + cosf(destination) * 1,
-                                             currSnake.position.y + sinf(destination) * 1);
-            
+            if (sqrt((deltaX * deltaX) + (deltaY * deltaY)) > 50) {
+            currSnake.position = CGPointMake(currSnake.position.x + cosf(destination) * 2,
+                                             currSnake.position.y + sinf(destination) * 2);
+            }
             oldX = thisX;
             oldY = thisY;
             NSLog(@"X: %i", x);
