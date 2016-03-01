@@ -42,7 +42,7 @@
 @property float posX;
 @property float posY;
 
--(id)initWithCollision:  (int)SnakeCat :(int)CoinCat: (CGFloat)screenW :(CGFloat)screenH;
+-(id)initWithCollision:(int)SnakeCat CoinCat:(int)CoinCat screenWidth:(CGFloat)screenW screenHeight:(CGFloat)screenH;
 
 -(void)setProperties: (CGFloat) screenW :(CGFloat)screenH;
 

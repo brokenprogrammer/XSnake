@@ -47,7 +47,7 @@
     return (float)arc4random() / ARC4RANDOM_MAX * (max - min);
 }
 
--(id)initWithCollision:  (int)SnakeCat :(int)CoinCat: (CGFloat)screenW :(CGFloat)screenH {
+-(id)initWithCollision:(int)SnakeCat CoinCat:(int)CoinCat screenWidth:(CGFloat)screenW screenHeight:(CGFloat)screenH {
     self = [super init];
     if(self)
     {

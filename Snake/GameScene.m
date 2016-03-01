@@ -174,7 +174,8 @@ float angle;
 }
 
 -(void)createCoin {
-    coinLogic = [[Coin new] initWithCollision:snakeHitCategory :coinHitCategory :self.frame.size.width :self.frame.size.height];
+    coinLogic = [[Coin new] initWithCollision:snakeHitCategory
+                                      CoinCat:coinHitCategory screenWidth:self.frame.size.width screenHeight:self.frame.size.height];
     
     [coinLogic setProperties:screenWidth :screenHeight];
     
