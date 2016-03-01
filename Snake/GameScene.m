@@ -41,7 +41,6 @@ static const int snakeSpeed = 2;
 static double screenWidth;
 static double screenHeight;
 
-//SKSpriteNode *shape;
 Coin *coinLogic;
 Snake *snake;
 
@@ -66,21 +65,6 @@ float angle;
     
     self.backgroundColor = [SKColor colorWithRed: 0.0 green: 0.0 blue: 0.0 alpha: 1.0];
     
-    //shape = [SKShapeNode shapeNodeWithRectOfSize:CGSizeMake(50.0, 50.0)];
-    //shape.strokeColor = [SKColor redColor];
-    //shape.lineWidth = 3;
-    /*shape = [SKSpriteNode spriteNodeWithImageNamed:@"Spaceship"];
-    shape.position = CGPointMake(400, 350);
-    //shape.fillColor = [SKColor redColor];
-    CGSize shapeSize = CGSizeMake(50, 50);
-    
-    shape.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:shapeSize];
-    shape.physicsBody.dynamic = YES;
-    shape.physicsBody.usesPreciseCollisionDetection = YES;
-    shape.physicsBody.categoryBitMask = snakeHitCategory;
-    shape.physicsBody.contactTestBitMask = coinHitCategory;
-    shape.physicsBody.collisionBitMask = 0;*/
-    
     angle = 1;
     rotation = [SKAction rotateByAngle:M_PI_4/20 duration:0];
     rotation2 = [SKAction rotateByAngle:-(M_PI_4/20) duration:0];
@@ -93,23 +77,6 @@ float angle;
     [self addChild:snake];
     
 }
-
-/*-(void)mouseDown:(NSEvent *)theEvent {
-      Called when a mouse click occurs */
-    
-  /*  CGPoint location = [theEvent locationInNode:self];
-    
-    SKSpriteNode *sprite = [SKSpriteNode spriteNodeWithImageNamed:@"Spaceship"];
-    
-    sprite.position = location;
-    sprite.scale = 0.5;
-    
-    SKAction *action = [SKAction rotateByAngle:M_PI duration:1];
-    
-    [sprite runAction:[SKAction repeatActionForever:action]];
-    
-    [self addChild:sprite];
-}*/
 
 -(void)keyDown:(NSEvent *)theEvent {
     NSString *key = [theEvent charactersIgnoringModifiers];
@@ -187,7 +154,6 @@ float angle;
     float newXPosition;
     float newYPosition;
     
-    //ABS(angle);
     newXPosition = snake.position.x - sinf(DEGREES_TO_RADIANS(angle)) * snakeSpeed;
     newYPosition = snake.position.y + cosf(DEGREES_TO_RADIANS(angle)) * snakeSpeed;
     
