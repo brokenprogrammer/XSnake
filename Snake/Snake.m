@@ -44,7 +44,7 @@
         
         self.position = CGPointMake(400, 350);
         CGSize shapeSize = CGSizeMake(50, 50);
-        
+        self.scale = 0.5;
         self.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:shapeSize];
         self.physicsBody.dynamic = YES;
         self.physicsBody.usesPreciseCollisionDetection = YES;
@@ -89,7 +89,7 @@
         
         thisSnake.zRotation = dest;
         
-        if (sqrt((dX * dX) + (dY * dY)) > 50) {
+        if (sqrt((dX * dX) + (dY * dY)) > 25) {
             float newXPosition;
             float newYPosition;
             
@@ -112,9 +112,12 @@
             
             currSnake.zRotation = destination;
             
-            if (sqrt((deltaX * deltaX) + (deltaY * deltaY)) > 50) {
+            if (sqrt((deltaX * deltaX) + (deltaY * deltaY)) > 25) {
                 currSnake.position = CGPointMake(currSnake.position.x + cosf(destination) * 2,
                                                  currSnake.position.y + sinf(destination) * 2);
+            } else {
+                currSnake.position = CGPointMake(currSnake.position.x + cosf(destination) * 1,
+                                                 currSnake.position.y + sinf(destination) * 1);
             }
             
             oldX = thisX;
