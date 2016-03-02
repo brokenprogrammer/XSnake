@@ -89,13 +89,17 @@
         
         thisSnake.zRotation = dest;
         
+        float newXPosition;
+        float newYPosition;
         if (sqrt((dX * dX) + (dY * dY)) > 25) {
-            float newXPosition;
-            float newYPosition;
-            
             newXPosition = thisSnake.position.x + cosf(dest) * 2;
             newYPosition = thisSnake.position.y + sinf(dest) * 2;
         
+            thisSnake.position = CGPointMake(newXPosition, newYPosition);
+        } else {
+            newXPosition = thisSnake.position.x + cosf(dest) * 1;
+            newYPosition = thisSnake.position.y + sinf(dest) * 1;
+            
             thisSnake.position = CGPointMake(newXPosition, newYPosition);
         }
         

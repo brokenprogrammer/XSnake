@@ -32,20 +32,28 @@
 #import "Snake.h"
 
 @implementation GameScene
+
+/* Collision detection categories */
 static const int snakeHitCategory = 1;
 static const int coinHitCategory = 2;
 
-static const int rotateSpeed = 2;
-static const int snakeSpeed = 2;
+/* Speed variables */
+static const int rotateSpeed = 2; /* Rotation speed in degrees */
+static const int snakeSpeed = 2;  /* Movement speed in pixels */
 
+/* Screen size */
 static double screenWidth;
 static double screenHeight;
 
-Coin *coinLogic;
-Snake *snake;
-SKEmitterNode *explosionEmitter;
-CFTimeInterval emitterTimer;
-CFTimeInterval globalTimer;
+float angle;
+
+/* Game Objects */
+Coin *coinLogic; /* Coin that will be reused for addding length to the snake */
+Snake *snake;    /* The snake that will be player controlled */
+
+SKEmitterNode *explosionEmitter; /* Emitter for effect of picking up coin. */
+CFTimeInterval emitterTimer;     /* Timer for stopping emitter */
+CFTimeInterval globalTimer;      /* Global time */
 
 SKAction *movement;
 SKAction *rotation;
@@ -56,21 +64,16 @@ bool moveLeft = false;
 bool moveDown = false;
 bool moveRight = false;
 
-float angle;
-
+/* 
+ * didMoveToView
+ * Initializer function here is where the scene starts.
+ *
+ * @param view - the view that will display the scene.
+ */
 -(void)didMoveToView:(SKView *)view {
     /* Setup your scene here */
     self.physicsWorld.gravity = CGVectorMake(0, 0);
     self.physicsWorld.contactDelegate = self;
-    
-    NSString *explostionPath = [[NSBundle mainBundle]
-                                pathForResource:@"ExplosionParticle" ofType:@"sks"];
-    
-    explosionEmitter = [NSKeyedUnarchiver unarchiveObjectWithFile:explostionPath];
-    
-    
-    explosionEmitter.name = @"explosion";
-    explosionEmitter.targetNode = self.scene;
     
     screenWidth = self.frame.size.width;
     screenHeight = self.frame.size.height;
@@ -81,6 +84,14 @@ float angle;
     rotation = [SKAction rotateByAngle:M_PI_4/20 duration:0];
     rotation2 = [SKAction rotateByAngle:-(M_PI_4/20) duration:0];
     
+    NSString *explostionPath = [[NSBundle mainBundle]
+                                pathForResource:@"ExplosionParticle" ofType:@"sks"];
+    
+    
+    explosionEmitter = [NSKeyedUnarchiver unarchiveObjectWithFile:explostionPath];
+    explosionEmitter.name = @"explosion";
+    explosionEmitter.targetNode = self.scene;
+    
     [self createSnake];
     [self createCoin];
     
@@ -88,6 +99,12 @@ float angle;
     [self addChild:snake];
 }
 
+/*
+ * keyDown
+ * Activates when a key was pushed down.
+ *
+ * @param theEvent - The current event containing the pushed key.
+ */
 -(void)keyDown:(NSEvent *)theEvent {
     NSString *key = [theEvent charactersIgnoringModifiers];
     unichar keyChar = 0;
@@ -112,6 +129,12 @@ float angle;
     }
 }
 
+/*
+ * keyUp
+ * Activates when a key was released.
+ *
+ * @param theEvent - The current event containing the released key.
+ */
 -(void)keyUp:(NSEvent *)theEvent {
     NSString *key = [theEvent charactersIgnoringModifiers];
     unichar keyChar = 0;
@@ -136,6 +159,13 @@ float angle;
     }
 }
 
+/*
+ * didBeginContact
+ * The collision logic function that is called immediatley when two objects
+ * with registered physicsbodies collides.
+ *
+ * @param contact - The current contact that was made between objects.
+ */
 -(void)didBeginContact:(SKPhysicsContact *)contact {
     NSLog(@"snake hit the Coin");
     SKPhysicsBody *firstBody, *secondBody;
@@ -164,6 +194,12 @@ float angle;
     }
 }
 
+/*
+ * update
+ * Function that is called each frame to update the game.
+ *
+ * @param currentTime - The current time.
+ */
 -(void)update:(CFTimeInterval)currentTime {
     /* Called before each frame is rendered */
     globalTimer = currentTime;
@@ -195,6 +231,10 @@ float angle;
     }
 }
 
+/*
+ * createCoin
+ * Initialiser function for the Coin object.
+ */
 -(void)createCoin {
     coinLogic = [[Coin new] initWithCollision:snakeHitCategory
                                       CoinCat:coinHitCategory screenWidth:self.frame.size.width screenHeight:self.frame.size.height];
@@ -210,12 +250,21 @@ float angle;
     coinLogic.physicsBody.affectedByGravity = NO;
 }
 
+/*
+ * createSnake
+ * Initialiser function for the player controlled Snake object.
+ */
 -(void)createSnake {
     snake = [[Snake new] initWithCollision:snakeHitCategory :coinHitCategory];
     
     [snake setProperties:screenWidth :screenHeight];
 }
 
+/*
+ * newSnake
+ * Function used to append the length of the snake by creating a new snake and
+ * setting it as a child for the original snake.
+ */
 -(void)newSnake {
     Snake *newSnake = [[Snake new] initWithCollision:snakeHitCategory :coinHitCategory];
     [newSnake setProperties:screenWidth :screenHeight];
