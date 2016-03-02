@@ -18,6 +18,12 @@
 		AB9371B11C81C2FF00533718 /* Snake.m in Sources */ = {isa = PBXBuildFile; fileRef = AB9371B01C81C2FF00533718 /* Snake.m */; };
 		AB9371B21C81C2FF00533718 /* Snake.m in Sources */ = {isa = PBXBuildFile; fileRef = AB9371B01C81C2FF00533718 /* Snake.m */; };
 		AB9371B31C81C2FF00533718 /* Snake.m in Sources */ = {isa = PBXBuildFile; fileRef = AB9371B01C81C2FF00533718 /* Snake.m */; };
+		AB9472601C8734A60006BFCA /* ExplosionParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = AB94725E1C8734A60006BFCA /* ExplosionParticle.sks */; };
+		AB9472611C8734A60006BFCA /* ExplosionParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = AB94725E1C8734A60006BFCA /* ExplosionParticle.sks */; };
+		AB9472621C8734A60006BFCA /* ExplosionParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = AB94725E1C8734A60006BFCA /* ExplosionParticle.sks */; };
+		AB9472631C8734A60006BFCA /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = AB94725F1C8734A60006BFCA /* spark.png */; };
+		AB9472641C8734A60006BFCA /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = AB94725F1C8734A60006BFCA /* spark.png */; };
+		AB9472651C8734A60006BFCA /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = AB94725F1C8734A60006BFCA /* spark.png */; };
 		AB9B8F4B1C7C9B1D0004EF7C /* Coin.m in Sources */ = {isa = PBXBuildFile; fileRef = AB9B8F4A1C7C9B1D0004EF7C /* Coin.m */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +63,8 @@
 		AB7A4CF01C7A35B500CC891C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AB9371B01C81C2FF00533718 /* Snake.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Snake.m; sourceTree = "<group>"; };
 		AB9371B41C81C30F00533718 /* Snake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Snake.h; sourceTree = "<group>"; };
+		AB94725E1C8734A60006BFCA /* ExplosionParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ExplosionParticle.sks; sourceTree = "<group>"; };
+		AB94725F1C8734A60006BFCA /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		AB9B8F4A1C7C9B1D0004EF7C /* Coin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Coin.m; sourceTree = "<group>"; };
 		AB9B8F4C1C7C9B480004EF7C /* Coin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Coin.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -122,6 +130,8 @@
 				AB9B8F4C1C7C9B480004EF7C /* Coin.h */,
 				AB9371B01C81C2FF00533718 /* Snake.m */,
 				AB9371B41C81C30F00533718 /* Snake.h */,
+				AB94725E1C8734A60006BFCA /* ExplosionParticle.sks */,
+				AB94725F1C8734A60006BFCA /* spark.png */,
 			);
 			path = Snake;
 			sourceTree = "<group>";
@@ -255,7 +265,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB9472631C8734A60006BFCA /* spark.png in Resources */,
 				AB7A4CD61C7A35B400CC891C /* Assets.xcassets in Resources */,
+				AB9472601C8734A60006BFCA /* ExplosionParticle.sks in Resources */,
 				AB7A4CD41C7A35B400CC891C /* GameScene.sks in Resources */,
 				AB7A4CD91C7A35B400CC891C /* MainMenu.xib in Resources */,
 			);
@@ -265,6 +277,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB9472611C8734A60006BFCA /* ExplosionParticle.sks in Resources */,
+				AB9472641C8734A60006BFCA /* spark.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,6 +286,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB9472621C8734A60006BFCA /* ExplosionParticle.sks in Resources */,
+				AB9472651C8734A60006BFCA /* spark.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

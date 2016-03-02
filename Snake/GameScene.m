@@ -43,6 +43,7 @@ static double screenHeight;
 
 Coin *coinLogic;
 Snake *snake;
+SKEmitterNode *explosionEmitter;
 
 SKAction *movement;
 SKAction *rotation;
@@ -60,6 +61,15 @@ float angle;
     self.physicsWorld.gravity = CGVectorMake(0, 0);
     self.physicsWorld.contactDelegate = self;
     
+    NSString *explostionPath = [[NSBundle mainBundle]
+                                pathForResource:@"ExplosionParticle" ofType:@"sks"];
+    
+    explosionEmitter = [NSKeyedUnarchiver unarchiveObjectWithFile:explostionPath];
+    
+    
+    explosionEmitter.name = @"explosion";
+    explosionEmitter.targetNode = self.scene;
+    
     screenWidth = self.frame.size.width;
     screenHeight = self.frame.size.height;
     
@@ -75,7 +85,6 @@ float angle;
     
     [self addChild:coinLogic];
     [self addChild:snake];
-    
 }
 
 -(void)keyDown:(NSEvent *)theEvent {
@@ -138,6 +147,8 @@ float angle;
         
         NSLog(@"snake hit the Coin");
         //setup your methods and other things here
+        explosionEmitter.position = CGPointMake(coinLogic.position.x, coinLogic.position.y);
+        [self addChild:explosionEmitter];
         [coinLogic removeFromParent];
         
         //Make snake longer
@@ -145,6 +156,7 @@ float angle;
         
         [coinLogic respawnCoin];
         [self addChild:coinLogic];
+        [explosionEmitter removeFromParent];
     }
 }
 
