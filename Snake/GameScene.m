@@ -44,6 +44,8 @@ static double screenHeight;
 Coin *coinLogic;
 Snake *snake;
 SKEmitterNode *explosionEmitter;
+CFTimeInterval emitterTimer;
+CFTimeInterval globalTimer;
 
 SKAction *movement;
 SKAction *rotation;
@@ -81,7 +83,6 @@ float angle;
     
     [self createSnake];
     [self createCoin];
-    
     
     [self addChild:coinLogic];
     [self addChild:snake];
@@ -147,8 +148,12 @@ float angle;
         
         NSLog(@"snake hit the Coin");
         //setup your methods and other things here
+        [explosionEmitter removeFromParent];
         explosionEmitter.position = CGPointMake(coinLogic.position.x, coinLogic.position.y);
+        
+        emitterTimer = globalTimer + 0.5;
         [self addChild:explosionEmitter];
+        
         [coinLogic removeFromParent];
         
         //Make snake longer
@@ -156,12 +161,12 @@ float angle;
         
         [coinLogic respawnCoin];
         [self addChild:coinLogic];
-        [explosionEmitter removeFromParent];
     }
 }
 
 -(void)update:(CFTimeInterval)currentTime {
     /* Called before each frame is rendered */
+    globalTimer = currentTime;
     
     float newXPosition;
     float newYPosition;
@@ -183,6 +188,11 @@ float angle;
     
     [snake updateSnakeParts:snake.position.x :snake.position.y :angle];
     NSLog(@"Angle: %f", angle);
+    
+    NSLog(@"emitterTimer: %f currentTime: %f", emitterTimer, currentTime);
+    if (emitterTimer < currentTime) {
+        [explosionEmitter removeFromParent];
+    }
 }
 
 -(void)createCoin {
@@ -215,6 +225,14 @@ float angle;
     [[snake snakeParts] addObject:newSnake];
     [snake addSnakePart:newSnake];
     [self addChild:newSnake];
+}
+
+-(void)newExplostionEmitter {
+    
+}
+
+-(void)queueExplostion:(CFTimeInterval)newTime {
+    
 }
 
 @end
