@@ -36,6 +36,7 @@
 /* Collision detection categories */
 static const int snakeHitCategory = 1;
 static const int coinHitCategory = 2;
+static const int snakePartHitCategory = 3;
 
 /* Speed variables */
 static const int rotateSpeed = 2; /* Rotation speed in degrees */
@@ -84,16 +85,9 @@ bool moveRight = false;
     rotation = [SKAction rotateByAngle:M_PI_4/20 duration:0];
     rotation2 = [SKAction rotateByAngle:-(M_PI_4/20) duration:0];
     
-    NSString *explostionPath = [[NSBundle mainBundle]
-                                pathForResource:@"ExplosionParticle" ofType:@"sks"];
-    
-    
-    explosionEmitter = [NSKeyedUnarchiver unarchiveObjectWithFile:explostionPath];
-    explosionEmitter.name = @"explosion";
-    explosionEmitter.targetNode = self.scene;
-    
     [self createSnake];
     [self createCoin];
+    [self newExplostionEmitter];
     
     [self addChild:coinLogic];
     [self addChild:snake];
@@ -173,7 +167,8 @@ bool moveRight = false;
     firstBody = contact.bodyA;
     secondBody = contact.bodyB;
     
-    if(firstBody.categoryBitMask == snakeHitCategory || secondBody.categoryBitMask == snakeHitCategory)
+    if((firstBody.categoryBitMask == coinHitCategory && secondBody.categoryBitMask == snakeHitCategory) ||
+       (secondBody.categoryBitMask == coinHitCategory && firstBody.categoryBitMask == snakeHitCategory))
     {
         
         NSLog(@"snake hit the Coin");
@@ -266,18 +261,26 @@ bool moveRight = false;
  * setting it as a child for the original snake.
  */
 -(void)newSnake {
-    Snake *newSnake = [[Snake new] initWithCollision:snakeHitCategory :coinHitCategory];
+    Snake *newSnake = [[Snake new] initWithCollision:snakePartHitCategory :coinHitCategory];
     [newSnake setProperties:screenWidth :screenHeight];
-    newSnake.position = CGPointMake(snake.position.x - sinf(DEGREES_TO_RADIANS(angle)) * -1,
-                                    snake.position.y + cosf(DEGREES_TO_RADIANS(angle)) * -1);
-    newSnake.zRotation = snake.zRotation;
+    
+    Snake *lastSnake = [[snake snakeParts] lastObject];
+    newSnake.position = CGPointMake(lastSnake.position.x - sinf(DEGREES_TO_RADIANS(angle)) * -1,
+                                    lastSnake.position.y + cosf(DEGREES_TO_RADIANS(angle)) * -1);
+    newSnake.zRotation = lastSnake.zRotation;
     [[snake snakeParts] addObject:newSnake];
     [snake addSnakePart:newSnake];
     [self addChild:newSnake];
 }
 
 -(void)newExplostionEmitter {
+    NSString *explostionPath = [[NSBundle mainBundle]
+                                pathForResource:@"ExplosionParticle" ofType:@"sks"];
     
+    
+    explosionEmitter = [NSKeyedUnarchiver unarchiveObjectWithFile:explostionPath];
+    explosionEmitter.name = @"explosion";
+    explosionEmitter.targetNode = self.scene;
 }
 
 -(void)queueExplostion:(CFTimeInterval)newTime {
