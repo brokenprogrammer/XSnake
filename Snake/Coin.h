@@ -42,14 +42,53 @@
 @property float posX;
 @property float posY;
 
+/*
+ * initWithCollision
+ * Initialiser function for the Coin class. 
+ *
+ * @param SnakeCat - Collision category for the snake it should respond to.
+ * @param CoinCat - Collision category the coin should hate.
+ * @param screenWidth - Size of the screen setting boundaries to where coin can
+ *  spawn.
+ * @param screenHeight - Size of the screen setting boundaries to where coin can
+ *  spawn.
+ *
+ * @returns new Coin instance.
+ */
 -(id)initWithCollision:(int)SnakeCat CoinCat:(int)CoinCat screenWidth:(CGFloat)screenW screenHeight:(CGFloat)screenH;
 
+/*
+ * setProperties
+ * Function to after object is initialised set the properties of the object.
+ *
+ * @param screenW - Width of the game screen.
+ * @param screenH - Height of the game screen.
+ */
 -(void)setProperties: (CGFloat) screenW :(CGFloat)screenH;
 
+/*
+ * randomPos
+ * Returns random number within the range of specified numbers.
+ *
+ * @param min - Min number object can spawn at.
+ * @param man - Max number object can spawn at.
+ *
+ * @returns random number within range min & max.
+ */
 -(float) randomPos: (float) min :(float) max;
 
+/*
+ * respawnCoin
+ * Function used by outside classes to respawn the coin in the game.
+ */
 -(void) respawnCoin;
 
+/*
+ * update
+ * Function that is called each frame to update the game.
+ *
+ * @param currentTime - The current time.
+ */
 -(void)update:(NSTimeInterval) delta;
 
 @end

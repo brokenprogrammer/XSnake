@@ -273,6 +273,10 @@ bool moveRight = false;
     [self addChild:newSnake];
 }
 
+/*
+ * newExplostionEmitter
+ * Initialiser function for the explosion emitter object.
+ */
 -(void)newExplostionEmitter {
     NSString *explostionPath = [[NSBundle mainBundle]
                                 pathForResource:@"ExplosionParticle" ofType:@"sks"];
@@ -281,10 +285,6 @@ bool moveRight = false;
     explosionEmitter = [NSKeyedUnarchiver unarchiveObjectWithFile:explostionPath];
     explosionEmitter.name = @"explosion";
     explosionEmitter.targetNode = self.scene;
-}
-
--(void)queueExplostion:(CFTimeInterval)newTime {
-    
 }
 
 @end
