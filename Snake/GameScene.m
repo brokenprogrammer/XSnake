@@ -60,6 +60,11 @@ SKAction *movement;
 SKAction *rotation;
 SKAction *rotation2;
 
+SKAction *waitFor;
+SKAction *fadeOut;
+SKAction *removeNode;
+SKAction *emitterSequence;
+
 bool moveUp = false;
 bool moveLeft = false;
 bool moveDown = false;
@@ -84,6 +89,11 @@ bool moveRight = false;
     angle = 1;
     rotation = [SKAction rotateByAngle:M_PI_4/20 duration:0];
     rotation2 = [SKAction rotateByAngle:-(M_PI_4/20) duration:0];
+    
+    waitFor = [SKAction waitForDuration:0.8];
+    fadeOut = [SKAction fadeOutWithDuration:0.25];
+    removeNode = [SKAction removeFromParent];
+    emitterSequence = [SKAction sequence:@[waitFor, removeNode]];
     
     [self createSnake];
     [self createCoin];
@@ -173,12 +183,21 @@ bool moveRight = false;
         
         NSLog(@"snake hit the Coin");
         //setup your methods and other things here
-        [explosionEmitter removeFromParent];
-        explosionEmitter.position = CGPointMake(coinLogic.position.x, coinLogic.position.y);
+        //[explosionEmitter removeFromParent];
         
-        emitterTimer = globalTimer + 0.5;
-        [self addChild:explosionEmitter];
+        NSString *explostionPath = [[NSBundle mainBundle]
+                                    pathForResource:@"ExplosionParticle" ofType:@"sks"];
         
+        SKEmitterNode *exploEmitter;
+        exploEmitter = [NSKeyedUnarchiver unarchiveObjectWithFile:explostionPath];
+        exploEmitter.name = @"explosion";
+        exploEmitter.targetNode = self.scene;
+        
+        exploEmitter.position = CGPointMake(coinLogic.position.x, coinLogic.position.y);
+        [self addChild:exploEmitter];
+        [exploEmitter runAction:emitterSequence];
+       // emitterTimer = globalTimer + 0.8;
+       // [self addChild:explosionEmitter];
         [coinLogic removeFromParent];
         
         //Make snake longer
@@ -218,12 +237,14 @@ bool moveRight = false;
     }
     
     [snake updateSnakeParts:snake.position.x :snake.position.y :angle];
-    NSLog(@"Angle: %f", angle);
-    
-    NSLog(@"emitterTimer: %f currentTime: %f", emitterTimer, currentTime);
-    if (emitterTimer < currentTime) {
-        [explosionEmitter removeFromParent];
-    }
+    //NSLog(@"Angle: %f", angle);
+    NSLog(@"Angle: %lu", (unsigned long)explosionEmitter.numParticlesToEmit);
+    //NSLog(@"emitterTimer: %f currentTime: %f", emitterTimer, currentTime);
+    //if (emitterTimer < currentTime) {
+        //[explosionEmitter runAction:fadeOut];
+       // [explosionEmitter removeFromParent];
+        //[explosionEmitter runAction:emitterSequence];
+   // }
 }
 
 /*
@@ -269,7 +290,7 @@ bool moveRight = false;
                                     lastSnake.position.y + cosf(DEGREES_TO_RADIANS(angle)) * -1);
     newSnake.zRotation = lastSnake.zRotation;
     [[snake snakeParts] addObject:newSnake];
-    [snake addSnakePart:newSnake];
+    //[snake addSnakePart:newSnake];
     [self addChild:newSnake];
 }
 

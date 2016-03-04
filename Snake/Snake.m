@@ -164,7 +164,6 @@
             
             oldX = thisX;
             oldY = thisY;
-            NSLog(@"X: %i", x);
         }
     }
 }
