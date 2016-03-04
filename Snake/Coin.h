@@ -34,13 +34,14 @@
     
 }
 
-@property (nonatomic) CGFloat coinWidth;
-@property (nonatomic) CGFloat coinHeight;
-@property (nonatomic) CGSize coinSize;
-@property (nonatomic) CGFloat screenWidth;
-@property (nonatomic) CGFloat screenHeight;
-@property float posX;
-@property float posY;
+@property (nonatomic) CGFloat coinWidth;    /* Width of the Coin Object */
+@property (nonatomic) CGFloat coinHeight;   /* Height of the Coin Object */
+@property (nonatomic) CGSize coinSize;      /* Size of the Coin Object */
+@property (nonatomic) CGFloat screenWidth;  /* Width of the game screen */
+@property (nonatomic) CGFloat screenHeight; /* Height of the game screen */
+
+@property float posX; /* Current X position of the Coin */
+@property float posY; /* Current Y position of the Coin */
 
 /*
  * initWithCollision

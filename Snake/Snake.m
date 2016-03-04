@@ -33,6 +33,15 @@
     
 }
 
+/*
+ * initWithCollision
+ * Initialiser function for the Snake class.
+ *
+ * @param SnakeCat - Collision category for the snake it should respond to.
+ * @param CoinCat - Collision category the coin should hate.
+ *
+ * @returns new Snake instance.
+ */
 -(id)initWithCollision:  (int)SnakeCat :(int)CoinCat{
     self = [super init];
     
@@ -56,6 +65,13 @@
     return self;
 }
 
+/*
+ * setProperties
+ * Function to after object is initialised set the properties of the object.
+ *
+ * @param screenW - Width of the game screen.
+ * @param screenH - Height of the game screen.
+ */
 -(void)setProperties: (CGFloat) screenW :(CGFloat)screenH {
     self.snakeWidth = 50;
     self.snakeHeight = 50;
@@ -65,15 +81,37 @@
     self.snakeParts = [NSMutableArray array];
 }
 
+/*
+ * update
+ * Function that is called each frame to update the game.
+ *
+ * @param currentTime - The current time.
+ */
 -(void)update:(NSTimeInterval) delta {
     
 }
 
+/*
+ * addSnakePart
+ * Functions that adds a snake part to the current snake objects
+ * snake part array.
+ *
+ * @param Snake - The Snake object to add.
+ */
 -(void)addSnakePart: (Snake*) newSnake {
     //[snakeParts addObject:newSnake];
     NSLog(@"snake parts: %lu", (unsigned long)[self.snakeParts count]);
 }
 
+/*
+ * updateSnakeParts
+ * Updates the position of the entire chain of snakeParts connected to this
+ * Snake object. Moves the Snake Parts depending on distance to its parrent.
+ *
+ * @param lastX - The x position of the first Snake object.
+ * @param lastY - The y position of the first Snake object.
+ * @param lastRotation - The rotation of the first Snake object.
+ */
 -(void)updateSnakeParts: (CGFloat) lastX :(CGFloat) lastY :(CGFloat)lastRotation{
     if ([self.snakeParts count] > 0) {
         Snake *thisSnake = self.snakeParts[0];
