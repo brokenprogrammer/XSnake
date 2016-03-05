@@ -126,6 +126,7 @@
         CGFloat dest = atan2f(dY, dX);
         
         thisSnake.zRotation = dest;
+        thisSnake.zRotation = thisSnake.zRotation - DEGREES_TO_RADIANS(90.0f);
         
         float newXPosition;
         float newYPosition;
@@ -153,6 +154,7 @@
             CGFloat destination = atan2(deltaY, deltaX);
             
             currSnake.zRotation = destination;
+            currSnake.zRotation = currSnake.zRotation - DEGREES_TO_RADIANS(90.0f);
             
             if (sqrt((deltaX * deltaX) + (deltaY * deltaY)) > 25) {
                 currSnake.position = CGPointMake(currSnake.position.x + cosf(destination) * 2,
