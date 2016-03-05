@@ -15,6 +15,9 @@
 		AB7A4CD91C7A35B400CC891C /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB7A4CD71C7A35B400CC891C /* MainMenu.xib */; };
 		AB7A4CE41C7A35B500CC891C /* SnakeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AB7A4CE31C7A35B500CC891C /* SnakeTests.m */; };
 		AB7A4CEF1C7A35B500CC891C /* SnakeUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = AB7A4CEE1C7A35B500CC891C /* SnakeUITests.m */; };
+		AB7D8F291C8B4455009137D9 /* SpeedPowerUp.m in Sources */ = {isa = PBXBuildFile; fileRef = AB7D8F281C8B4455009137D9 /* SpeedPowerUp.m */; };
+		AB7D8F2A1C8B4455009137D9 /* SpeedPowerUp.m in Sources */ = {isa = PBXBuildFile; fileRef = AB7D8F281C8B4455009137D9 /* SpeedPowerUp.m */; };
+		AB7D8F2B1C8B4455009137D9 /* SpeedPowerUp.m in Sources */ = {isa = PBXBuildFile; fileRef = AB7D8F281C8B4455009137D9 /* SpeedPowerUp.m */; };
 		AB9371B11C81C2FF00533718 /* Snake.m in Sources */ = {isa = PBXBuildFile; fileRef = AB9371B01C81C2FF00533718 /* Snake.m */; };
 		AB9371B21C81C2FF00533718 /* Snake.m in Sources */ = {isa = PBXBuildFile; fileRef = AB9371B01C81C2FF00533718 /* Snake.m */; };
 		AB9371B31C81C2FF00533718 /* Snake.m in Sources */ = {isa = PBXBuildFile; fileRef = AB9371B01C81C2FF00533718 /* Snake.m */; };
@@ -61,6 +64,8 @@
 		AB7A4CEA1C7A35B500CC891C /* SnakeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SnakeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB7A4CEE1C7A35B500CC891C /* SnakeUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SnakeUITests.m; sourceTree = "<group>"; };
 		AB7A4CF01C7A35B500CC891C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AB7D8F281C8B4455009137D9 /* SpeedPowerUp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpeedPowerUp.m; sourceTree = "<group>"; };
+		AB7D8F2C1C8B446E009137D9 /* SpeedPowerUp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeedPowerUp.h; sourceTree = "<group>"; };
 		AB9371B01C81C2FF00533718 /* Snake.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Snake.m; sourceTree = "<group>"; };
 		AB9371B41C81C30F00533718 /* Snake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Snake.h; sourceTree = "<group>"; };
 		AB94725E1C8734A60006BFCA /* ExplosionParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ExplosionParticle.sks; sourceTree = "<group>"; };
@@ -132,6 +137,8 @@
 				AB9371B41C81C30F00533718 /* Snake.h */,
 				AB94725E1C8734A60006BFCA /* ExplosionParticle.sks */,
 				AB94725F1C8734A60006BFCA /* spark.png */,
+				AB7D8F281C8B4455009137D9 /* SpeedPowerUp.m */,
+				AB7D8F2C1C8B446E009137D9 /* SpeedPowerUp.h */,
 			);
 			path = Snake;
 			sourceTree = "<group>";
@@ -300,6 +307,7 @@
 			files = (
 				AB9371B11C81C2FF00533718 /* Snake.m in Sources */,
 				AB7A4CCF1C7A35B400CC891C /* main.m in Sources */,
+				AB7D8F291C8B4455009137D9 /* SpeedPowerUp.m in Sources */,
 				AB7A4CD21C7A35B400CC891C /* GameScene.m in Sources */,
 				AB9B8F4B1C7C9B1D0004EF7C /* Coin.m in Sources */,
 				AB7A4CCC1C7A35B400CC891C /* AppDelegate.m in Sources */,
@@ -312,6 +320,7 @@
 			files = (
 				AB9371B21C81C2FF00533718 /* Snake.m in Sources */,
 				AB7A4CE41C7A35B500CC891C /* SnakeTests.m in Sources */,
+				AB7D8F2A1C8B4455009137D9 /* SpeedPowerUp.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,6 +330,7 @@
 			files = (
 				AB9371B31C81C2FF00533718 /* Snake.m in Sources */,
 				AB7A4CEF1C7A35B500CC891C /* SnakeUITests.m in Sources */,
+				AB7D8F2B1C8B4455009137D9 /* SpeedPowerUp.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
