@@ -31,6 +31,58 @@
     
 }
 
+@synthesize screenWidth;
+@synthesize screenHeight;
+
+@synthesize Square1;
+@synthesize Square1_WIDTH;
+@synthesize Square1_HEIGHT;
+@synthesize Square1_SIZE;
+@synthesize Square1_X;
+@synthesize Square1_Y;
+
+@synthesize Square2;
+@synthesize Square2_WIDTH;
+@synthesize Square2_HEIGHT;
+@synthesize Square2_SIZE;
+@synthesize Square2_X;
+@synthesize Square2_Y;
 
 
+/*
+ * setProperties
+ * Function to after object is initialised set the properties of the object.
+ *
+ * @param screenW - Width of the game screen.
+ * @param screenH - Height of the game screen.
+ */
+-(void)setProperties: (CGFloat) screenW :(CGFloat)screenH {
+    self.screenWidth = screenW;
+    self.screenHeight = screenH;
+    self.squareRotation = [SKAction rotateByAngle:M_PI_4 duration:1];
+    
+    self.Square1_WIDTH = 50;
+    self.Square1_HEIGHT = 50;
+    self.Square1_SIZE = CGSizeMake(self.Square1_WIDTH, self.Square1_HEIGHT);
+    self.Square1_X = 400;
+    self.Square1_Y = 400;
+    Square1 = [SKShapeNode shapeNodeWithRectOfSize:self.Square1_SIZE];
+    Square1.fillColor = [SKColor redColor];
+    Square1.position = CGPointMake(self.Square1_X, self.Square1_Y);
+    
+    self.Square2_WIDTH = 50;
+    self.Square2_HEIGHT = 50;
+    self.Square2_SIZE = CGSizeMake(self.Square2_WIDTH, self.Square2_HEIGHT);
+    self.Square2_X = 650;
+    self.Square2_Y = 400;
+    Square2 = [SKShapeNode shapeNodeWithRectOfSize:self.Square2_SIZE];
+    Square2.fillColor = [SKColor redColor];
+    Square2.position = CGPointMake(self.Square2_X, self.Square2_Y);
+    
+    [self.Square1 runAction:[SKAction repeatActionForever:self.squareRotation]];
+    [self.Square2 runAction:[SKAction repeatActionForever:self.squareRotation]];
+    
+    [self addChild:self.Square1];
+    [self addChild:self.Square2];
+}
 @end

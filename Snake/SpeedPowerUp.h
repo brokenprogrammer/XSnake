@@ -32,10 +32,12 @@
 
 @interface SpeedPowerUp : SKNode
 
-@property (nonatomic) CGFloat screenWidth;  /* Width of the game screen */
-@property (nonatomic) CGFloat screenHeight; /* Height of the game screen */
+@property (nonatomic) CGFloat screenWidth;     /* Width of the game screen */
+@property (nonatomic) CGFloat screenHeight;    /* Height of the game screen */
+@property (nonatomic) SKAction *squareRotation; /**/
 
 /* FIRST SQUARE PROPERTIES */
+@property (nonatomic) SKShapeNode *Square1;  /**/
 @property (nonatomic) CGFloat Square1_WIDTH; /**/
 @property (nonatomic) CGFloat Square1_HEIGHT;/**/
 @property (nonatomic) CGSize Square1_SIZE;   /**/
@@ -43,11 +45,22 @@
 @property (nonatomic) CGFloat Square1_Y;     /**/
 
 /* SECOND SQUARE PROPERTIES */
+@property (nonatomic) SKShapeNode *Square2;  /**/
 @property (nonatomic) CGFloat Square2_WIDTH; /**/
 @property (nonatomic) CGFloat Square2_HEIGHT;/**/
 @property (nonatomic) CGSize Square2_SIZE;   /**/
 @property (nonatomic) CGFloat Square2_X;     /**/
 @property (nonatomic) CGFloat Square2_Y;     /**/
+
+
+/*
+ * setProperties
+ * Function to after object is initialised set the properties of the object.
+ *
+ * @param screenW - Width of the game screen.
+ * @param screenH - Height of the game screen.
+ */
+-(void)setProperties: (CGFloat) screenW :(CGFloat)screenH;
 
 @end
 

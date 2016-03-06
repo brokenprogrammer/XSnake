@@ -30,6 +30,7 @@
 #import "GameScene.h"
 #import "Coin.h"
 #import "Snake.h"
+#import "SpeedPowerUp.h"
 
 @implementation GameScene
 
@@ -51,6 +52,8 @@ float angle;
 /* Game Objects */
 Coin *coinLogic; /* Coin that will be reused for addding length to the snake */
 Snake *snake;    /* The snake that will be player controlled */
+
+SpeedPowerUp *speedPower; /**/
 
 SKEmitterNode *explosionEmitter; /* Emitter for effect of picking up coin. */
 CFTimeInterval emitterTimer;     /* Timer for stopping emitter */
@@ -98,9 +101,11 @@ bool moveRight = false;
     [self createSnake];
     [self createCoin];
     [self newExplostionEmitter];
+    [self createSpeedPower];
     
     [self addChild:coinLogic];
     [self addChild:snake];
+    [self addChild:speedPower];
 }
 
 /*
@@ -274,6 +279,15 @@ bool moveRight = false;
     snake = [[Snake new] initWithCollision:snakeHitCategory :coinHitCategory];
     
     [snake setProperties:screenWidth :screenHeight];
+}
+
+/*
+ * createSpeedPower
+ * Initialiser function for the speed powerup.
+ */
+-(void)createSpeedPower {
+    speedPower = [[SpeedPowerUp new] init];
+    [speedPower setProperties:screenWidth :screenHeight];
 }
 
 /*
