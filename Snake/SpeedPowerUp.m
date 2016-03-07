@@ -31,22 +31,24 @@
     
 }
 
-@synthesize screenWidth;
-@synthesize screenHeight;
+@synthesize screenWidth;   /**/
+@synthesize screenHeight;  /**/
 
-@synthesize Square1;
-@synthesize Square1_WIDTH;
-@synthesize Square1_HEIGHT;
-@synthesize Square1_SIZE;
-@synthesize Square1_X;
-@synthesize Square1_Y;
+@synthesize Square1;       /**/
+@synthesize Square1_WIDTH; /**/
+@synthesize Square1_HEIGHT;/**/
+@synthesize Square1_SIZE;  /**/
+@synthesize Square1_X;     /**/
+@synthesize Square1_Y;     /**/
 
-@synthesize Square2;
-@synthesize Square2_WIDTH;
-@synthesize Square2_HEIGHT;
-@synthesize Square2_SIZE;
-@synthesize Square2_X;
-@synthesize Square2_Y;
+@synthesize Square2;       /**/
+@synthesize Square2_WIDTH; /**/
+@synthesize Square2_HEIGHT;/**/
+@synthesize Square2_SIZE;  /**/
+@synthesize Square2_X;     /**/
+@synthesize Square2_Y;     /**/
+
+@synthesize line;          /**/
 
 
 /*
@@ -79,9 +81,17 @@
     Square2.fillColor = [SKColor redColor];
     Square2.position = CGPointMake(self.Square2_X, self.Square2_Y);
     
+    line = [SKShapeNode node];
+    CGMutablePathRef pathDraw = CGPathCreateMutable();
+    CGPathMoveToPoint(pathDraw, NULL, 400, 400);
+    CGPathAddLineToPoint(pathDraw, NULL, 650, 400);
+    line.path = pathDraw;
+    [line setStrokeColor:[SKColor redColor]];
+    
     [self.Square1 runAction:[SKAction repeatActionForever:self.squareRotation]];
     [self.Square2 runAction:[SKAction repeatActionForever:self.squareRotation]];
     
+    [self addChild:self.line];
     [self addChild:self.Square1];
     [self addChild:self.Square2];
 }

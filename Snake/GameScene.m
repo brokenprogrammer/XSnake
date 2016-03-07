@@ -50,6 +50,9 @@ static double screenHeight;
 float angle;
 
 /* Game Objects */
+long score;
+const NSString *scoreText = @"Score: ";
+
 Coin *coinLogic; /* Coin that will be reused for addding length to the snake */
 Snake *snake;    /* The snake that will be player controlled */
 
@@ -89,6 +92,12 @@ bool moveRight = false;
     
     self.backgroundColor = [SKColor colorWithRed: 0.0 green: 0.0 blue: 0.0 alpha: 1.0];
     
+    /* Score Tracking Label */
+    SKLabelNode *label = [SKLabelNode node];
+    score = 0;
+    label.text = scoreText;
+    label.position = CGPointMake(50, screenHeight-50);
+    
     angle = 1;
     rotation = [SKAction rotateByAngle:M_PI_4/20 duration:0];
     rotation2 = [SKAction rotateByAngle:-(M_PI_4/20) duration:0];
@@ -103,6 +112,7 @@ bool moveRight = false;
     [self newExplostionEmitter];
     [self createSpeedPower];
     
+    [self addChild:label];
     [self addChild:coinLogic];
     [self addChild:snake];
     [self addChild:speedPower];
