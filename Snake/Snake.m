@@ -105,6 +105,32 @@
 }
 
 /*
+ * increaseSpeed
+ * Increases the speed of all snakeParts by one.
+ */
+-(void)increaseSpeed {
+    self.snakeSpeed = self.snakeSpeed + 1;
+    
+    for (int x = 0; x < [self.snakeParts count]; x++) {
+        Snake *currSnake = self.snakeParts[x];
+        currSnake.snakeSpeed = currSnake.snakeSpeed + 1;
+    }
+}
+
+/*
+ * resetSpeed
+ * Resets the speed of all snakeParts to the standard speed.
+ */
+-(void)resetSpeed {
+    self.snakeSpeed = 2;
+    
+    for (int x = 0; x < [self.snakeParts count]; x++) {
+        Snake *currSnake = self.snakeParts[x];
+        currSnake.snakeSpeed = 2;
+    }
+}
+
+/*
  * updateSnakeParts
  * Updates the position of the entire chain of snakeParts connected to this
  * Snake object. Moves the Snake Parts depending on distance to its parrent.

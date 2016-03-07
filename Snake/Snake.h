@@ -80,6 +80,18 @@
 -(void)addSnakePart: (Snake*) newSnake;
 
 /*
+ * increaseSpeed
+ * Increases the speed of all snakeParts by one.
+ */
+-(void)increaseSpeed;
+
+/*
+ * resetSpeed
+ * Resets the speed of all snakeParts to the standard speed.
+ */
+-(void)resetSpeed;
+
+/*
  * updateSnakeParts
  * Updates the position of the entire chain of snakeParts connected to this
  * Snake object. Moves the Snake Parts depending on distance to its parrent.

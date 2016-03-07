@@ -210,8 +210,9 @@ bool moveRight = false;
         exploEmitter.position = CGPointMake(coinLogic.position.x, coinLogic.position.y);
         [self addChild:exploEmitter];
         [exploEmitter runAction:emitterSequence];
-       // emitterTimer = globalTimer + 0.8;
-       // [self addChild:explosionEmitter];
+       
+        [snake increaseSpeed];
+        
         [coinLogic removeFromParent];
         
         //Make snake longer
@@ -237,8 +238,8 @@ bool moveRight = false;
     float newXPosition;
     float newYPosition;
     
-    newXPosition = snake.position.x - sinf(DEGREES_TO_RADIANS(angle)) * snakeSpeed;
-    newYPosition = snake.position.y + cosf(DEGREES_TO_RADIANS(angle)) * snakeSpeed;
+    newXPosition = snake.position.x - sinf(DEGREES_TO_RADIANS(angle)) * [snake snakeSpeed];
+    newYPosition = snake.position.y + cosf(DEGREES_TO_RADIANS(angle)) * [snake snakeSpeed];
     
     snake.position = CGPointMake(newXPosition, newYPosition);
     
