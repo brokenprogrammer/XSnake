@@ -40,6 +40,7 @@
 @property (nonatomic) CGFloat screenWidth;
 @property (nonatomic) CGFloat screenHeight;
 @property (nonatomic) NSMutableArray* snakeParts;
+@property (nonatomic) int snakeSpeed;
 
 /*
  * initWithCollision

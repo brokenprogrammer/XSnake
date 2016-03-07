@@ -186,7 +186,6 @@ bool moveRight = false;
  * @param contact - The current contact that was made between objects.
  */
 -(void)didBeginContact:(SKPhysicsContact *)contact {
-    NSLog(@"snake hit the Coin");
     SKPhysicsBody *firstBody, *secondBody;
     
     firstBody = contact.bodyA;
@@ -220,6 +219,8 @@ bool moveRight = false;
         
         [coinLogic respawnCoin];
         [self addChild:coinLogic];
+        
+        [speedPower respawnSpeedPowerUp];
     }
 }
 

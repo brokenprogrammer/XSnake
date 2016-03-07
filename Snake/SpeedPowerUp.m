@@ -25,6 +25,8 @@
  * SOFTWARE.
  */
 
+#define ARC4RANDOM_MAX 0x100000000
+
 #import "SpeedPowerUp.h"
 
 @implementation SpeedPowerUp {
@@ -95,4 +97,45 @@
     [self addChild:self.Square1];
     [self addChild:self.Square2];
 }
+
+/*
+ * randomPos
+ * Returns random number within the range of specified numbers.
+ *
+ * @param min - Min number object can spawn at.
+ * @param man - Max number object can spawn at.
+ *
+ * @returns random number within range min & max.
+ */
+-(float) randomPos: (float) min :(float) max {
+    return (float)arc4random() / ARC4RANDOM_MAX * (max - min);
+}
+
+/*
+ * respawnSpeedPowerUp
+ * Function used by outside classes to respawn the powerUp in the game.
+ */
+-(void) respawnSpeedPowerUp {
+    //self.position = CGPointMake([self randomPos:0 :screenW], [self randomPos:0 :screenH]);
+    //self.position = CGPointMake([self randomPos:0 :self.screenWidth], [self randomPos:0 :self.screenHeight]);
+    //self.posX = self.position.x;
+    //self.posY = self.position.y;
+    [line removeFromParent];
+    [Square1 removeFromParent];
+    [Square2 removeFromParent];
+    
+    Square1.position = CGPointMake([self randomPos:250 :self.screenWidth-250], [self randomPos:250 :screenHeight-250]);
+    Square2.position = CGPointMake([self randomPos:250 :self.screenWidth-250], [self randomPos:250 :screenHeight-250]);
+    
+    CGMutablePathRef pathDraw = CGPathCreateMutable();
+    CGPathMoveToPoint(pathDraw, NULL, Square1.position.x, Square1.position.y);
+    CGPathAddLineToPoint(pathDraw, NULL, Square2.position.x, Square2.position.y);
+    line.path = pathDraw;
+    
+    [self addChild:self.line];
+    [self addChild:self.Square1];
+    [self addChild:self.Square2];
+    NSLog(@"After: %f", self.position.x);
+}
+
 @end

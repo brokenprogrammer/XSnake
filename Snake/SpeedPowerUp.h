@@ -64,6 +64,23 @@
  */
 -(void)setProperties: (CGFloat) screenW :(CGFloat)screenH;
 
+/*
+ * randomPos
+ * Returns random number within the range of specified numbers.
+ *
+ * @param min - Min number object can spawn at.
+ * @param man - Max number object can spawn at.
+ *
+ * @returns random number within range min & max.
+ */
+-(float) randomPos: (float) min :(float) max;
+
+/*
+ * respawnSpeedPowerUp
+ * Function used by outside classes to respawn the powerUp in the game.
+ */
+-(void) respawnSpeedPowerUp;
+
 @end
 
 #endif /* SpeedPowerUp_h */

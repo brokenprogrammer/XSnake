@@ -75,6 +75,7 @@
 -(void)setProperties: (CGFloat) screenW :(CGFloat)screenH {
     self.snakeWidth = 50;
     self.snakeHeight = 50;
+    self.snakeSpeed = 2;
     self.snakeSize = CGSizeMake(self.snakeWidth, self.snakeHeight);
     self.screenWidth = screenW;
     self.screenHeight = screenH;
@@ -131,8 +132,8 @@
         float newXPosition;
         float newYPosition;
         if (sqrt((dX * dX) + (dY * dY)) > 25) {
-            newXPosition = thisSnake.position.x + cosf(dest) * 2;
-            newYPosition = thisSnake.position.y + sinf(dest) * 2;
+            newXPosition = thisSnake.position.x + cosf(dest) * [thisSnake snakeSpeed];
+            newYPosition = thisSnake.position.y + sinf(dest) * [thisSnake snakeSpeed];
         
             thisSnake.position = CGPointMake(newXPosition, newYPosition);
         } else {
@@ -157,8 +158,8 @@
             currSnake.zRotation = currSnake.zRotation - DEGREES_TO_RADIANS(90.0f);
             
             if (sqrt((deltaX * deltaX) + (deltaY * deltaY)) > 25) {
-                currSnake.position = CGPointMake(currSnake.position.x + cosf(destination) * 2,
-                                                 currSnake.position.y + sinf(destination) * 2);
+                currSnake.position = CGPointMake(currSnake.position.x + cosf(destination) * [currSnake snakeSpeed],
+                                                 currSnake.position.y + sinf(destination) * [currSnake snakeSpeed]);
             } else {
                 currSnake.position = CGPointMake(currSnake.position.x + cosf(destination) * 1,
                                                  currSnake.position.y + sinf(destination) * 1);
