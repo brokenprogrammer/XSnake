@@ -254,14 +254,7 @@ bool moveRight = false;
     }
     
     [snake updateSnakeParts:snake.position.x :snake.position.y :angle];
-    //NSLog(@"Angle: %f", angle);
-    NSLog(@"Angle: %lu", (unsigned long)explosionEmitter.numParticlesToEmit);
-    //NSLog(@"emitterTimer: %f currentTime: %f", emitterTimer, currentTime);
-    //if (emitterTimer < currentTime) {
-        //[explosionEmitter runAction:fadeOut];
-       // [explosionEmitter removeFromParent];
-        //[explosionEmitter runAction:emitterSequence];
-   // }
+    NSLog(@"Angle: %f", angle);
 }
 
 /*
@@ -306,6 +299,7 @@ bool moveRight = false;
  * newSnake
  * Function used to append the length of the snake by creating a new snake and
  * setting it as a child for the original snake.
+ * @TODO: Make new snake have the same speed as current HEAD.
  */
 -(void)newSnake {
     Snake *newSnake = [[Snake new] initWithCollision:snakePartHitCategory :coinHitCategory];
