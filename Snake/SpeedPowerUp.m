@@ -90,6 +90,15 @@
     line.path = pathDraw;
     [line setStrokeColor:[SKColor redColor]];
     
+    //line.position = CGPointMake(400, 400);
+    line.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(250, 50)];
+    line.physicsBody.dynamic = YES;
+    line.physicsBody.usesPreciseCollisionDetection = YES;
+    line.physicsBody.categoryBitMask = 1;
+    line.physicsBody.contactTestBitMask = 4;
+    line.physicsBody.collisionBitMask = 0;
+    line.physicsBody.affectedByGravity = 0;
+    
     [self.Square1 runAction:[SKAction repeatActionForever:self.squareRotation]];
     [self.Square2 runAction:[SKAction repeatActionForever:self.squareRotation]];
     

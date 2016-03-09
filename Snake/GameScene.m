@@ -38,6 +38,7 @@
 static const int snakeHitCategory = 1;
 static const int coinHitCategory = 2;
 static const int snakePartHitCategory = 3;
+static const int speedPowerHitCategory = 4;
 
 /* Speed variables */
 static const int rotateSpeed = 2; /* Rotation speed in degrees */
