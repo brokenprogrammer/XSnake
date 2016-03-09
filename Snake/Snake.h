@@ -98,9 +98,8 @@
  *
  * @param lastX - The x position of the first Snake object.
  * @param lastY - The y position of the first Snake object.
- * @param lastRotation - The rotation of the first Snake object.
  */
--(void)updateSnakeParts: (CGFloat) lastX :(CGFloat) lastY :(CGFloat)lastRotation;
+-(void)updateSnakeParts: (CGFloat) lastX :(CGFloat) lastY;
 
 @end
 

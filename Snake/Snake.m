@@ -33,6 +33,8 @@
     
 }
 
+@synthesize snakeSpeed;
+
 /*
  * initWithCollision
  * Initialiser function for the Snake class.
@@ -137,13 +139,11 @@
  *
  * @param lastX - The x position of the first Snake object.
  * @param lastY - The y position of the first Snake object.
- * @param lastRotation - The rotation of the first Snake object.
  */
--(void)updateSnakeParts: (CGFloat) lastX :(CGFloat) lastY :(CGFloat)lastRotation{
+-(void)updateSnakeParts: (CGFloat) lastX :(CGFloat) lastY {
     if ([self.snakeParts count] > 0) {
         Snake *thisSnake = self.snakeParts[0];
         
-        CGFloat oldRot = thisSnake.zRotation;
         CGFloat oldX = thisSnake.position.x;
         CGFloat oldY = thisSnake.position.y;
         

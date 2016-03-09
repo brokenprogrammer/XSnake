@@ -41,7 +41,7 @@ static const int snakePartHitCategory = 3;
 
 /* Speed variables */
 static const int rotateSpeed = 2; /* Rotation speed in degrees */
-static const int snakeSpeed = 2;  /* Movement speed in pixels */
+//static const int snakeSpeed = 2;  /* Movement speed in pixels */
 
 /* Screen size */
 static double screenWidth;
@@ -51,7 +51,8 @@ float angle;
 
 /* Game Objects */
 long score;
-const NSString *scoreText = @"Score: ";
+NSString *scoreText = @"Score: ";
+SKLabelNode *scoreLabel;
 
 Coin *coinLogic; /* Coin that will be reused for addding length to the snake */
 Snake *snake;    /* The snake that will be player controlled */
@@ -93,26 +94,31 @@ bool moveRight = false;
     self.backgroundColor = [SKColor colorWithRed: 0.0 green: 0.0 blue: 0.0 alpha: 1.0];
     
     /* Score Tracking Label */
-    SKLabelNode *label = [SKLabelNode node];
+    scoreLabel = [SKLabelNode node];
     score = 0;
-    label.text = scoreText;
-    label.position = CGPointMake(50, screenHeight-50);
+    NSString *scoret = [scoreText stringByAppendingFormat:@"%li", score];
+    scoreLabel.text = scoret;
+    scoreLabel.position = CGPointMake(80, screenHeight-50);
     
+    /* Snake angle logic */
     angle = 1;
     rotation = [SKAction rotateByAngle:M_PI_4/20 duration:0];
     rotation2 = [SKAction rotateByAngle:-(M_PI_4/20) duration:0];
     
+    /* Explosion emitter actions */
     waitFor = [SKAction waitForDuration:0.8];
     fadeOut = [SKAction fadeOutWithDuration:0.25];
     removeNode = [SKAction removeFromParent];
     emitterSequence = [SKAction sequence:@[waitFor, removeNode]];
     
+    /* Initialiser functions. */
     [self createSnake];
     [self createCoin];
     [self newExplostionEmitter];
     [self createSpeedPower];
     
-    [self addChild:label];
+    /* Add all objects to screen. */
+    [self addChild:scoreLabel];
     [self addChild:coinLogic];
     [self addChild:snake];
     [self addChild:speedPower];
@@ -211,12 +217,16 @@ bool moveRight = false;
         [self addChild:exploEmitter];
         [exploEmitter runAction:emitterSequence];
        
-        [snake increaseSpeed];
+        //[snake increaseSpeed];
         
         [coinLogic removeFromParent];
         
         //Make snake longer
         [self newSnake];
+        
+        score++;
+        NSString *scoret = [scoreText stringByAppendingFormat:@"%li", score];
+        scoreLabel.text = scoret;
         
         [coinLogic respawnCoin];
         [self addChild:coinLogic];
@@ -253,7 +263,7 @@ bool moveRight = false;
         snake.zRotation = snake.zRotation - DEGREES_TO_RADIANS(rotateSpeed);
     }
     
-    [snake updateSnakeParts:snake.position.x :snake.position.y :angle];
+    [snake updateSnakeParts:snake.position.x :snake.position.y];
     NSLog(@"Angle: %f", angle);
 }
 
@@ -284,6 +294,7 @@ bool moveRight = false;
     snake = [[Snake new] initWithCollision:snakeHitCategory :coinHitCategory];
     
     [snake setProperties:screenWidth :screenHeight];
+    snake.snakeSpeed = 2;
 }
 
 /*
@@ -305,10 +316,21 @@ bool moveRight = false;
     Snake *newSnake = [[Snake new] initWithCollision:snakePartHitCategory :coinHitCategory];
     [newSnake setProperties:screenWidth :screenHeight];
     
-    Snake *lastSnake = [[snake snakeParts] lastObject];
-    newSnake.position = CGPointMake(lastSnake.position.x - sinf(DEGREES_TO_RADIANS(angle)) * -1,
-                                    lastSnake.position.y + cosf(DEGREES_TO_RADIANS(angle)) * -1);
-    newSnake.zRotation = lastSnake.zRotation;
+    if ([[snake snakeParts] count] > 0) {
+        Snake *lastSnake = [[snake snakeParts] lastObject];
+        newSnake.position = CGPointMake(lastSnake.position.x - sinf(DEGREES_TO_RADIANS(angle)) * -1,
+                                        lastSnake.position.y + cosf(DEGREES_TO_RADIANS(angle)) * -1);
+        newSnake.zRotation = lastSnake.zRotation;
+        newSnake.snakeSpeed = lastSnake.snakeSpeed;
+    } else {
+        newSnake.position = CGPointMake(snake.position.x - sinf(DEGREES_TO_RADIANS(angle)) * -1,
+                                        snake.position.y + cosf(DEGREES_TO_RADIANS(angle)) * -1);
+        newSnake.zRotation = snake.zRotation;
+        newSnake.snakeSpeed = snake.snakeSpeed;
+    }
+    
+    
+    
     [[snake snakeParts] addObject:newSnake];
     //[snake addSnakePart:newSnake];
     [self addChild:newSnake];
