@@ -44,17 +44,6 @@
 @property (nonatomic) CGFloat Square1_X;     /**/
 @property (nonatomic) CGFloat Square1_Y;     /**/
 
-/* SECOND SQUARE PROPERTIES */
-@property (nonatomic) SKShapeNode *Square2;  /**/
-@property (nonatomic) CGFloat Square2_WIDTH; /**/
-@property (nonatomic) CGFloat Square2_HEIGHT;/**/
-@property (nonatomic) CGSize Square2_SIZE;   /**/
-@property (nonatomic) CGFloat Square2_X;     /**/
-@property (nonatomic) CGFloat Square2_Y;     /**/
-
-@property (nonatomic) SKShapeNode *line;     /**/
-
-
 /*
  * setProperties
  * Function to after object is initialised set the properties of the object.

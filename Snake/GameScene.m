@@ -217,8 +217,6 @@ bool moveRight = false;
         exploEmitter.position = CGPointMake(coinLogic.position.x, coinLogic.position.y);
         [self addChild:exploEmitter];
         [exploEmitter runAction:emitterSequence];
-       
-        //[snake increaseSpeed];
         
         [coinLogic removeFromParent];
         
@@ -232,7 +230,28 @@ bool moveRight = false;
         [coinLogic respawnCoin];
         [self addChild:coinLogic];
         
+    }
+    
+    if ((firstBody.categoryBitMask == speedPowerHitCategory && secondBody.categoryBitMask == snakeHitCategory) ||
+               (secondBody.categoryBitMask == speedPowerHitCategory && firstBody.categoryBitMask == snakeHitCategory)) {
+        NSString *explostionPath = [[NSBundle mainBundle]
+                                    pathForResource:@"ExplosionParticle" ofType:@"sks"];
+        
+        SKEmitterNode *exploEmitter;
+        exploEmitter = [NSKeyedUnarchiver unarchiveObjectWithFile:explostionPath];
+        exploEmitter.name = @"explosion";
+        exploEmitter.targetNode = self.scene;
+        
+        exploEmitter.position = CGPointMake(speedPower.Square1.position.x, speedPower.Square1.position.y);
+        [self addChild:exploEmitter];
+        [exploEmitter runAction:emitterSequence];
+        
+        
+        [snake increaseSpeed];
+        
         [speedPower respawnSpeedPowerUp];
+        
+        NSLog(@"snake hit the Coin");
     }
 }
 
@@ -265,7 +284,7 @@ bool moveRight = false;
     }
     
     [snake updateSnakeParts:snake.position.x :snake.position.y];
-    NSLog(@"Angle: %f", angle);
+    //NSLog(@"Angle: %f", angle);
 }
 
 /*

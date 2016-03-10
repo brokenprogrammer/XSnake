@@ -43,16 +43,6 @@
 @synthesize Square1_X;     /**/
 @synthesize Square1_Y;     /**/
 
-@synthesize Square2;       /**/
-@synthesize Square2_WIDTH; /**/
-@synthesize Square2_HEIGHT;/**/
-@synthesize Square2_SIZE;  /**/
-@synthesize Square2_X;     /**/
-@synthesize Square2_Y;     /**/
-
-@synthesize line;          /**/
-
-
 /*
  * setProperties
  * Function to after object is initialised set the properties of the object.
@@ -74,37 +64,17 @@
     Square1.fillColor = [SKColor redColor];
     Square1.position = CGPointMake(self.Square1_X, self.Square1_Y);
     
-    self.Square2_WIDTH = 50;
-    self.Square2_HEIGHT = 50;
-    self.Square2_SIZE = CGSizeMake(self.Square2_WIDTH, self.Square2_HEIGHT);
-    self.Square2_X = 650;
-    self.Square2_Y = 400;
-    Square2 = [SKShapeNode shapeNodeWithRectOfSize:self.Square2_SIZE];
-    Square2.fillColor = [SKColor redColor];
-    Square2.position = CGPointMake(self.Square2_X, self.Square2_Y);
-    
-    line = [SKShapeNode node];
-    CGMutablePathRef pathDraw = CGPathCreateMutable();
-    CGPathMoveToPoint(pathDraw, NULL, 400, 400);
-    CGPathAddLineToPoint(pathDraw, NULL, 650, 400);
-    line.path = pathDraw;
-    [line setStrokeColor:[SKColor redColor]];
-    
-    //line.position = CGPointMake(400, 400);
-    line.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(250, 50)];
-    line.physicsBody.dynamic = YES;
-    line.physicsBody.usesPreciseCollisionDetection = YES;
-    line.physicsBody.categoryBitMask = 1;
-    line.physicsBody.contactTestBitMask = 4;
-    line.physicsBody.collisionBitMask = 0;
-    line.physicsBody.affectedByGravity = 0;
+    Square1.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(Square1_WIDTH, Square1_HEIGHT)];
+    Square1.physicsBody.dynamic = YES;
+    Square1.physicsBody.usesPreciseCollisionDetection = YES;
+    Square1.physicsBody.categoryBitMask = 4;
+    Square1.physicsBody.contactTestBitMask = 1;
+    Square1.physicsBody.collisionBitMask = 0;
+    Square1.physicsBody.affectedByGravity = 0;
     
     [self.Square1 runAction:[SKAction repeatActionForever:self.squareRotation]];
-    [self.Square2 runAction:[SKAction repeatActionForever:self.squareRotation]];
     
-    [self addChild:self.line];
     [self addChild:self.Square1];
-    [self addChild:self.Square2];
 }
 
 /*
@@ -129,21 +99,11 @@
     //self.position = CGPointMake([self randomPos:0 :self.screenWidth], [self randomPos:0 :self.screenHeight]);
     //self.posX = self.position.x;
     //self.posY = self.position.y;
-    [line removeFromParent];
     [Square1 removeFromParent];
-    [Square2 removeFromParent];
     
-    Square1.position = CGPointMake([self randomPos:250 :self.screenWidth-250], [self randomPos:250 :screenHeight-250]);
-    Square2.position = CGPointMake([self randomPos:250 :self.screenWidth-250], [self randomPos:250 :screenHeight-250]);
+    Square1.position = CGPointMake([self randomPos:0 :self.screenWidth], [self randomPos:0 :self.screenHeight]);
     
-    CGMutablePathRef pathDraw = CGPathCreateMutable();
-    CGPathMoveToPoint(pathDraw, NULL, Square1.position.x, Square1.position.y);
-    CGPathAddLineToPoint(pathDraw, NULL, Square2.position.x, Square2.position.y);
-    line.path = pathDraw;
-    
-    [self addChild:self.line];
     [self addChild:self.Square1];
-    [self addChild:self.Square2];
     NSLog(@"After: %f", self.position.x);
 }
 
