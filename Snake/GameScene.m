@@ -63,6 +63,9 @@ SpeedPowerUp *speedPower; /**/
 SKEmitterNode *explosionEmitter; /* Emitter for effect of picking up coin. */
 CFTimeInterval emitterTimer;     /* Timer for stopping emitter */
 CFTimeInterval globalTimer;      /* Global time */
+CFTimeInterval speedTimer;       /* Timer for speed power up */
+
+bool speedActive = false;
 
 SKAction *movement;
 SKAction *rotation;
@@ -251,6 +254,9 @@ bool moveRight = false;
         
         [speedPower respawnSpeedPowerUp];
         
+        speedActive = true;
+        speedTimer = globalTimer + 3;
+        
         NSLog(@"snake hit the Coin");
     }
 }
@@ -285,6 +291,11 @@ bool moveRight = false;
     
     [snake updateSnakeParts:snake.position.x :snake.position.y];
     //NSLog(@"Angle: %f", angle);
+    
+    if (currentTime > speedTimer && speedActive) {
+        [snake resetSpeed];
+        speedActive = false;
+    }
 }
 
 /*
