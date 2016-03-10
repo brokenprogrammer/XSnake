@@ -27,19 +27,22 @@
 
 #import "AppDelegate.h"
 #import "GameScene.h"
+#import "MenuScene.h"
 
 @implementation AppDelegate
 
 @synthesize window = _window;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+    MenuScene *menu = [MenuScene nodeWithFileNamed:@"MenuScene"];
     GameScene *scene = [GameScene nodeWithFileNamed:@"GameScene"];
 
     /* Set the scale mode to scale to fit the window */
     scene.scaleMode = SKSceneScaleModeAspectFit;
 
-    [self.skView presentScene:scene];
-
+    //[self.skView presentScene:scene];
+    [self.skView presentScene:menu];
+    
     /* Sprite Kit applies additional optimizations to improve rendering performance */
     self.skView.ignoresSiblingOrder = YES;
     

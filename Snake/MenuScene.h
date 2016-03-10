@@ -28,5 +28,10 @@
 #ifndef MenuScene_h
 #define MenuScene_h
 
+#import <SpriteKit/SpriteKit.h>
+
+@interface MenuScene : SKScene <SKPhysicsContactDelegate>
+
+@end
 
 #endif /* MenuScene_h */

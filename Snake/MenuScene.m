@@ -25,4 +25,35 @@
  * SOFTWARE.
  */
 
-#import <Foundation/Foundation.h>
+#import "MenuScene.h"
+
+@implementation MenuScene
+
+/* Game Objects */
+long scoree;
+NSString *scoreTextt = @"Score: ";
+SKLabelNode *scoreLabell;
+
+/*
+ * didMoveToView
+ * Initializer function here is where the scene starts.
+ *
+ * @param view - the view that will display the scene.
+ */
+-(void)didMoveToView:(SKView *)view {
+    /* Setup your scene here */
+    self.physicsWorld.gravity = CGVectorMake(0, 0);
+    self.physicsWorld.contactDelegate = self;
+    self.backgroundColor = [SKColor colorWithRed: 0.0 green: 0.0 blue: 0.0 alpha: 1.0];
+    
+    /* Score Tracking Label */
+    scoreLabell = [SKLabelNode node];
+    scoree = 0;
+    NSString *scoret = [scoreTextt stringByAppendingFormat:@"%li", scoree];
+    scoreLabell.text = scoret;
+    scoreLabell.position = CGPointMake(80, 50);
+    
+    [self addChild:scoreLabell];
+}
+
+@end
