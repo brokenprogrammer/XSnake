@@ -15,6 +15,12 @@
 		AB7A4CD91C7A35B400CC891C /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB7A4CD71C7A35B400CC891C /* MainMenu.xib */; };
 		AB7A4CE41C7A35B500CC891C /* SnakeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AB7A4CE31C7A35B500CC891C /* SnakeTests.m */; };
 		AB7A4CEF1C7A35B500CC891C /* SnakeUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = AB7A4CEE1C7A35B500CC891C /* SnakeUITests.m */; };
+		AB7BED421C91AA7200B4E8DB /* MenuScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = AB7BED411C91AA7200B4E8DB /* MenuScene.sks */; };
+		AB7BED431C91AA7200B4E8DB /* MenuScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = AB7BED411C91AA7200B4E8DB /* MenuScene.sks */; };
+		AB7BED441C91AA7200B4E8DB /* MenuScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = AB7BED411C91AA7200B4E8DB /* MenuScene.sks */; };
+		AB7BED461C91AAB300B4E8DB /* MenuScene.m in Sources */ = {isa = PBXBuildFile; fileRef = AB7BED451C91AAB300B4E8DB /* MenuScene.m */; };
+		AB7BED471C91AAB300B4E8DB /* MenuScene.m in Sources */ = {isa = PBXBuildFile; fileRef = AB7BED451C91AAB300B4E8DB /* MenuScene.m */; };
+		AB7BED481C91AAB300B4E8DB /* MenuScene.m in Sources */ = {isa = PBXBuildFile; fileRef = AB7BED451C91AAB300B4E8DB /* MenuScene.m */; };
 		AB7D8F291C8B4455009137D9 /* SpeedPowerUp.m in Sources */ = {isa = PBXBuildFile; fileRef = AB7D8F281C8B4455009137D9 /* SpeedPowerUp.m */; };
 		AB7D8F2A1C8B4455009137D9 /* SpeedPowerUp.m in Sources */ = {isa = PBXBuildFile; fileRef = AB7D8F281C8B4455009137D9 /* SpeedPowerUp.m */; };
 		AB7D8F2B1C8B4455009137D9 /* SpeedPowerUp.m in Sources */ = {isa = PBXBuildFile; fileRef = AB7D8F281C8B4455009137D9 /* SpeedPowerUp.m */; };
@@ -64,6 +70,9 @@
 		AB7A4CEA1C7A35B500CC891C /* SnakeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SnakeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB7A4CEE1C7A35B500CC891C /* SnakeUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SnakeUITests.m; sourceTree = "<group>"; };
 		AB7A4CF01C7A35B500CC891C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AB7BED411C91AA7200B4E8DB /* MenuScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MenuScene.sks; sourceTree = "<group>"; };
+		AB7BED451C91AAB300B4E8DB /* MenuScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuScene.m; sourceTree = "<group>"; };
+		AB7BED491C91AAD500B4E8DB /* MenuScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuScene.h; sourceTree = "<group>"; };
 		AB7D8F281C8B4455009137D9 /* SpeedPowerUp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpeedPowerUp.m; sourceTree = "<group>"; };
 		AB7D8F2C1C8B446E009137D9 /* SpeedPowerUp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeedPowerUp.h; sourceTree = "<group>"; };
 		AB9371B01C81C2FF00533718 /* Snake.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Snake.m; sourceTree = "<group>"; };
@@ -127,6 +136,9 @@
 				AB7A4CD01C7A35B400CC891C /* GameScene.h */,
 				AB7A4CD11C7A35B400CC891C /* GameScene.m */,
 				AB7A4CD31C7A35B400CC891C /* GameScene.sks */,
+				AB7BED491C91AAD500B4E8DB /* MenuScene.h */,
+				AB7BED451C91AAB300B4E8DB /* MenuScene.m */,
+				AB7BED411C91AA7200B4E8DB /* MenuScene.sks */,
 				AB7A4CD51C7A35B400CC891C /* Assets.xcassets */,
 				AB7A4CD71C7A35B400CC891C /* MainMenu.xib */,
 				AB7A4CDA1C7A35B400CC891C /* Info.plist */,
@@ -273,6 +285,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AB9472631C8734A60006BFCA /* spark.png in Resources */,
+				AB7BED421C91AA7200B4E8DB /* MenuScene.sks in Resources */,
 				AB7A4CD61C7A35B400CC891C /* Assets.xcassets in Resources */,
 				AB9472601C8734A60006BFCA /* ExplosionParticle.sks in Resources */,
 				AB7A4CD41C7A35B400CC891C /* GameScene.sks in Resources */,
@@ -285,6 +298,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AB9472611C8734A60006BFCA /* ExplosionParticle.sks in Resources */,
+				AB7BED431C91AA7200B4E8DB /* MenuScene.sks in Resources */,
 				AB9472641C8734A60006BFCA /* spark.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -294,6 +308,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AB9472621C8734A60006BFCA /* ExplosionParticle.sks in Resources */,
+				AB7BED441C91AA7200B4E8DB /* MenuScene.sks in Resources */,
 				AB9472651C8734A60006BFCA /* spark.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -308,6 +323,7 @@
 				AB9371B11C81C2FF00533718 /* Snake.m in Sources */,
 				AB7A4CCF1C7A35B400CC891C /* main.m in Sources */,
 				AB7D8F291C8B4455009137D9 /* SpeedPowerUp.m in Sources */,
+				AB7BED461C91AAB300B4E8DB /* MenuScene.m in Sources */,
 				AB7A4CD21C7A35B400CC891C /* GameScene.m in Sources */,
 				AB9B8F4B1C7C9B1D0004EF7C /* Coin.m in Sources */,
 				AB7A4CCC1C7A35B400CC891C /* AppDelegate.m in Sources */,
@@ -319,6 +335,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AB9371B21C81C2FF00533718 /* Snake.m in Sources */,
+				AB7BED471C91AAB300B4E8DB /* MenuScene.m in Sources */,
 				AB7A4CE41C7A35B500CC891C /* SnakeTests.m in Sources */,
 				AB7D8F2A1C8B4455009137D9 /* SpeedPowerUp.m in Sources */,
 			);
@@ -329,6 +346,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AB9371B31C81C2FF00533718 /* Snake.m in Sources */,
+				AB7BED481C91AAB300B4E8DB /* MenuScene.m in Sources */,
 				AB7A4CEF1C7A35B500CC891C /* SnakeUITests.m in Sources */,
 				AB7D8F2B1C8B4455009137D9 /* SpeedPowerUp.m in Sources */,
 			);
