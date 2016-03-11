@@ -30,9 +30,14 @@
 @implementation MenuScene
 
 /* Game Objects */
-long scoree;
-NSString *scoreTextt = @"Score: ";
-SKLabelNode *scoreLabell;
+SKLabelNode *logoLabel;
+SKLabelNode *newgameLabel;
+SKLabelNode *instructionLabel;
+SKLabelNode *exitLabel;
+
+bool hoverNew = false;
+bool hoverInstruction = false;
+bool hoverExit = false;
 
 /*
  * didMoveToView
@@ -46,14 +51,106 @@ SKLabelNode *scoreLabell;
     self.physicsWorld.contactDelegate = self;
     self.backgroundColor = [SKColor colorWithRed: 0.0 green: 0.0 blue: 0.0 alpha: 1.0];
     
-    /* Score Tracking Label */
-    scoreLabell = [SKLabelNode node];
-    scoree = 0;
-    NSString *scoret = [scoreTextt stringByAppendingFormat:@"%li", scoree];
-    scoreLabell.text = scoret;
-    scoreLabell.position = CGPointMake(80, 50);
+    logoLabel = [SKLabelNode node];
+    logoLabel.text = @"xSnake";
+    logoLabel.fontSize = 100;
+    logoLabel.position = CGPointMake(self.frame.size.width / 2, self.frame.size.height - 150);
     
-    [self addChild:scoreLabell];
+    /* Score Tracking Label */
+    newgameLabel = [SKLabelNode node];
+    newgameLabel.name = @"new";
+    newgameLabel.text = @"New Game";
+    newgameLabel.position = CGPointMake(self.frame.size.width / 2, self.frame.size.height - 300);
+    
+    instructionLabel = [SKLabelNode node];
+    instructionLabel.text = @"Instructions";
+    instructionLabel.position = CGPointMake(self.frame.size.width / 2, self.frame.size.height - 400);
+    
+    exitLabel = [SKLabelNode node];
+    exitLabel.text = @"Exit Game";
+    exitLabel.position = CGPointMake(self.frame.size.width / 2, self.frame.size.height - 500);
+    
+    [self addChild:logoLabel];
+    [self addChild:newgameLabel];
+    [self addChild:instructionLabel];
+    [self addChild:exitLabel];
+}
+
+-(void)mouseMoved:(NSEvent *)theEvent {
+    /* Called when the mouse has moved */
+    CGPoint location = [theEvent locationInNode:self];
+    
+    if (CGRectContainsPoint(newgameLabel.frame, location)) {
+        hoverNew = true;
+    } else {
+        hoverNew = false;
+    }
+    
+    if (CGRectContainsPoint(instructionLabel.frame, location)) {
+        hoverInstruction = true;
+    } else {
+        hoverInstruction = false;
+    }
+    
+    if (CGRectContainsPoint(exitLabel.frame, location)) {
+        hoverExit = true;
+    } else {
+        hoverExit = false;
+    }
+}
+
+-(void)mouseDown:(NSEvent *)theEvent {
+    /* Called when a mouse click occurs */
+    
+    CGPoint location = [theEvent locationInNode:self];
+    
+    //SKNode *node = [self nodeAtPoint:location];
+    
+    if (CGRectContainsPoint(newgameLabel.frame, location)) {
+        /* Start new game */
+    }
+    
+    if (CGRectContainsPoint(instructionLabel.frame, location)) {
+        /* Display instructions */
+    }
+    
+    if (CGRectContainsPoint(exitLabel.frame, location)) {
+        [NSApp terminate:self];
+    }
+}
+
+-(void)update:(CFTimeInterval)currentTime {
+    /* Called before each frame is rendered */
+    
+    if (hoverNew) {
+        [newgameLabel removeFromParent];
+        newgameLabel.fontColor = [SKColor redColor];
+        [self addChild:newgameLabel];
+    } else if (hoverNew == false) {
+        [newgameLabel removeFromParent];
+        newgameLabel.fontColor = [SKColor whiteColor];
+        [self addChild:newgameLabel];
+    }
+    
+    if (hoverInstruction) {
+        [instructionLabel removeFromParent];
+        instructionLabel.fontColor = [SKColor redColor];
+        [self addChild:instructionLabel];
+    } else if (hoverInstruction == false) {
+        [instructionLabel removeFromParent];
+        instructionLabel.fontColor = [SKColor whiteColor];
+        [self addChild:instructionLabel];
+    }
+    
+    if (hoverExit) {
+        [exitLabel removeFromParent];
+        exitLabel.fontColor = [SKColor redColor];
+        [self addChild:exitLabel];
+    } else if (hoverExit == false) {
+        [exitLabel removeFromParent];
+        exitLabel.fontColor = [SKColor whiteColor];
+        [self addChild:exitLabel];
+    }
 }
 
 @end

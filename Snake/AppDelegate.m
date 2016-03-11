@@ -49,6 +49,9 @@
     self.skView.showsFPS = YES;
     self.skView.showsNodeCount = YES;
     self.skView.showsPhysics = YES;
+    
+    _window.acceptsMouseMovedEvents = YES;
+    [_window makeFirstResponder:self.skView.scene];
 }
 
 - (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender {
