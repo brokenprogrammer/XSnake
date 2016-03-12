@@ -35,10 +35,11 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     MenuScene *menu = [MenuScene nodeWithFileNamed:@"MenuScene"];
-    GameScene *scene = [GameScene nodeWithFileNamed:@"GameScene"];
+    //GameScene *scene = [GameScene nodeWithFileNamed:@"GameScene"];
 
     /* Set the scale mode to scale to fit the window */
-    scene.scaleMode = SKSceneScaleModeAspectFit;
+    menu.scaleMode = SKSceneScaleModeAspectFit;
+    //scene.scaleMode = SKSceneScaleModeAspectFit;
 
     //[self.skView presentScene:scene];
     [self.skView presentScene:menu];

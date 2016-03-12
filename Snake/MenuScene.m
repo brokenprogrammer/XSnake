@@ -26,6 +26,7 @@
  */
 
 #import "MenuScene.h"
+#import "GameScene.h"
 
 @implementation MenuScene
 
@@ -52,6 +53,7 @@ bool hoverExit = false;
     self.backgroundColor = [SKColor colorWithRed: 0.0 green: 0.0 blue: 0.0 alpha: 1.0];
     
     logoLabel = [SKLabelNode node];
+    logoLabel.name = @"logo";
     logoLabel.text = @"xSnake";
     logoLabel.fontSize = 100;
     logoLabel.position = CGPointMake(self.frame.size.width / 2, self.frame.size.height - 150);
@@ -63,10 +65,12 @@ bool hoverExit = false;
     newgameLabel.position = CGPointMake(self.frame.size.width / 2, self.frame.size.height - 300);
     
     instructionLabel = [SKLabelNode node];
+    instructionLabel.name = @"instructions";
     instructionLabel.text = @"Instructions";
     instructionLabel.position = CGPointMake(self.frame.size.width / 2, self.frame.size.height - 400);
     
     exitLabel = [SKLabelNode node];
+    exitLabel.name = @"exit";
     exitLabel.text = @"Exit Game";
     exitLabel.position = CGPointMake(self.frame.size.width / 2, self.frame.size.height - 500);
     
@@ -108,6 +112,12 @@ bool hoverExit = false;
     
     if (CGRectContainsPoint(newgameLabel.frame, location)) {
         /* Start new game */
+        SKTransition *reveal = [SKTransition fadeWithDuration:3];
+        
+        GameScene *scene = [GameScene sceneWithSize:CGSizeMake(1024, 768)];
+        //scene.scaleMode = SKSceneScaleModeAspectFill;
+        scene.scaleMode = SKSceneScaleModeAspectFit;
+        [self.view presentScene:scene transition:reveal];
     }
     
     if (CGRectContainsPoint(instructionLabel.frame, location)) {
@@ -115,6 +125,7 @@ bool hoverExit = false;
     }
     
     if (CGRectContainsPoint(exitLabel.frame, location)) {
+        /* Exit application */
         [NSApp terminate:self];
     }
 }
