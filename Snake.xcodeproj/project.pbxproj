@@ -34,6 +34,9 @@
 		AB9472641C8734A60006BFCA /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = AB94725F1C8734A60006BFCA /* spark.png */; };
 		AB9472651C8734A60006BFCA /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = AB94725F1C8734A60006BFCA /* spark.png */; };
 		AB9B8F4B1C7C9B1D0004EF7C /* Coin.m in Sources */ = {isa = PBXBuildFile; fileRef = AB9B8F4A1C7C9B1D0004EF7C /* Coin.m */; };
+		ABC5F8781C95BBBC0011118A /* InstructionScene.m in Sources */ = {isa = PBXBuildFile; fileRef = ABC5F8771C95BBBC0011118A /* InstructionScene.m */; };
+		ABC5F8791C95BBBC0011118A /* InstructionScene.m in Sources */ = {isa = PBXBuildFile; fileRef = ABC5F8771C95BBBC0011118A /* InstructionScene.m */; };
+		ABC5F87A1C95BBBC0011118A /* InstructionScene.m in Sources */ = {isa = PBXBuildFile; fileRef = ABC5F8771C95BBBC0011118A /* InstructionScene.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +84,8 @@
 		AB94725F1C8734A60006BFCA /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		AB9B8F4A1C7C9B1D0004EF7C /* Coin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Coin.m; sourceTree = "<group>"; };
 		AB9B8F4C1C7C9B480004EF7C /* Coin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Coin.h; sourceTree = "<group>"; };
+		ABC5F8771C95BBBC0011118A /* InstructionScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InstructionScene.m; sourceTree = "<group>"; };
+		ABC5F87B1C95BBCF0011118A /* InstructionScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InstructionScene.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +144,8 @@
 				AB7BED491C91AAD500B4E8DB /* MenuScene.h */,
 				AB7BED451C91AAB300B4E8DB /* MenuScene.m */,
 				AB7BED411C91AA7200B4E8DB /* MenuScene.sks */,
+				ABC5F87B1C95BBCF0011118A /* InstructionScene.h */,
+				ABC5F8771C95BBBC0011118A /* InstructionScene.m */,
 				AB7A4CD51C7A35B400CC891C /* Assets.xcassets */,
 				AB7A4CD71C7A35B400CC891C /* MainMenu.xib */,
 				AB7A4CDA1C7A35B400CC891C /* Info.plist */,
@@ -325,6 +332,7 @@
 				AB7D8F291C8B4455009137D9 /* SpeedPowerUp.m in Sources */,
 				AB7BED461C91AAB300B4E8DB /* MenuScene.m in Sources */,
 				AB7A4CD21C7A35B400CC891C /* GameScene.m in Sources */,
+				ABC5F8781C95BBBC0011118A /* InstructionScene.m in Sources */,
 				AB9B8F4B1C7C9B1D0004EF7C /* Coin.m in Sources */,
 				AB7A4CCC1C7A35B400CC891C /* AppDelegate.m in Sources */,
 			);
@@ -337,6 +345,7 @@
 				AB9371B21C81C2FF00533718 /* Snake.m in Sources */,
 				AB7BED471C91AAB300B4E8DB /* MenuScene.m in Sources */,
 				AB7A4CE41C7A35B500CC891C /* SnakeTests.m in Sources */,
+				ABC5F8791C95BBBC0011118A /* InstructionScene.m in Sources */,
 				AB7D8F2A1C8B4455009137D9 /* SpeedPowerUp.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -348,6 +357,7 @@
 				AB9371B31C81C2FF00533718 /* Snake.m in Sources */,
 				AB7BED481C91AAB300B4E8DB /* MenuScene.m in Sources */,
 				AB7A4CEF1C7A35B500CC891C /* SnakeUITests.m in Sources */,
+				ABC5F87A1C95BBBC0011118A /* InstructionScene.m in Sources */,
 				AB7D8F2B1C8B4455009137D9 /* SpeedPowerUp.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

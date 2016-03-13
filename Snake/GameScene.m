@@ -28,11 +28,14 @@
 #define DEGREES_TO_RADIANS( degrees ) ( ( degrees ) / 180.0 * M_PI )
 
 #import "GameScene.h"
+#import "MenuScene.h"
 #import "Coin.h"
 #import "Snake.h"
 #import "SpeedPowerUp.h"
 
 @implementation GameScene
+
+SKScene *mainMenu;
 
 /* Collision detection categories */
 static const int snakeHitCategory = 1;
@@ -80,6 +83,10 @@ bool moveUp = false;
 bool moveLeft = false;
 bool moveDown = false;
 bool moveRight = false;
+
+- (void)setMenuScene: (SKScene*)menuScene {
+    mainMenu = menuScene;
+}
 
 /* 
  * didMoveToView

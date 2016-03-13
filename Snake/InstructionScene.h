@@ -25,10 +25,15 @@
  * SOFTWARE.
  */
 
+#ifndef InstructionScene_h
+#define InstructionScene_h
+
 #import <SpriteKit/SpriteKit.h>
 
-@interface GameScene : SKScene <SKPhysicsContactDelegate>
+@interface InstructionScene : SKScene <SKPhysicsContactDelegate>
 
-- (void)setMenuScene: (SKScene*)menuScene;
+- (void)setMenuScene: (SKScene*)scene;
 
 @end
+
+#endif /* InstructionScene_h */

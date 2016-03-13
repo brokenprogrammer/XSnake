@@ -27,6 +27,7 @@
 
 #import "MenuScene.h"
 #import "GameScene.h"
+#import "InstructionScene.h"
 
 @implementation MenuScene
 
@@ -117,11 +118,18 @@ bool hoverExit = false;
         GameScene *scene = [GameScene sceneWithSize:CGSizeMake(1024, 768)];
         //scene.scaleMode = SKSceneScaleModeAspectFill;
         scene.scaleMode = SKSceneScaleModeAspectFit;
+        [scene setMenuScene:self];
         [self.view presentScene:scene transition:reveal];
     }
     
     if (CGRectContainsPoint(instructionLabel.frame, location)) {
         /* Display instructions */
+        SKTransition *reveal = [SKTransition fadeWithDuration:3];
+        
+        InstructionScene *scene = [InstructionScene sceneWithSize:CGSizeMake(1024, 768)];
+        scene.scaleMode = SKSceneScaleModeAspectFit;
+        
+        [self.view presentScene:scene transition:reveal];
     }
     
     if (CGRectContainsPoint(exitLabel.frame, location)) {

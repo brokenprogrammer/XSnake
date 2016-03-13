@@ -25,10 +25,47 @@
  * SOFTWARE.
  */
 
-#import <SpriteKit/SpriteKit.h>
+#import "InstructionScene.h"
 
-@interface GameScene : SKScene <SKPhysicsContactDelegate>
+@implementation InstructionScene
 
-- (void)setMenuScene: (SKScene*)menuScene;
+SKScene *menu;
+SKLabelNode *instructionsTitle;
+
+SKLabelNode *backLabel;
+
+- (void)setMenuScene: (SKScene*)scene {
+    menu = scene;
+}
+
+/*
+ * didMoveToView
+ * Initializer function here is where the scene starts.
+ *
+ * @param view - the view that will display the scene.
+ */
+-(void)didMoveToView:(SKView *)view {
+    /* Setup your scene here */
+    self.physicsWorld.gravity = CGVectorMake(0, 0);
+    self.physicsWorld.contactDelegate = self;
+    self.backgroundColor = [SKColor colorWithRed: 0.0 green: 0.0 blue: 0.0 alpha: 1.0];
+    
+    instructionsTitle = [SKLabelNode node];
+    instructionsTitle.name = @"logo";
+    instructionsTitle.text = @"xSnake";
+    instructionsTitle.fontSize = 100;
+    instructionsTitle.position = CGPointMake(self.frame.size.width / 2, self.frame.size.height - 150);
+    
+    [self addChild:instructionsTitle];
+}
+
+-(void)mouseMoved:(NSEvent *)theEvent {
+}
+
+-(void)mouseDown:(NSEvent *)theEvent {
+}
+
+-(void)update:(CFTimeInterval)currentTime {
+}
 
 @end
