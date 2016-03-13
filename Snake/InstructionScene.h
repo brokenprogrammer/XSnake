@@ -32,7 +32,7 @@
 
 @interface InstructionScene : SKScene <SKPhysicsContactDelegate>
 
-- (void)setMenuScene: (SKScene*)scene;
+
 
 @end
 

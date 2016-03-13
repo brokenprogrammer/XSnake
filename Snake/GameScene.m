@@ -35,8 +35,6 @@
 
 @implementation GameScene
 
-SKScene *mainMenu;
-
 /* Collision detection categories */
 static const int snakeHitCategory = 1;
 static const int coinHitCategory = 2;
@@ -83,10 +81,6 @@ bool moveUp = false;
 bool moveLeft = false;
 bool moveDown = false;
 bool moveRight = false;
-
-- (void)setMenuScene: (SKScene*)menuScene {
-    mainMenu = menuScene;
-}
 
 /* 
  * didMoveToView

@@ -29,6 +29,6 @@
 
 @interface GameScene : SKScene <SKPhysicsContactDelegate>
 
-- (void)setMenuScene: (SKScene*)menuScene;
+
 
 @end

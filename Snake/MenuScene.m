@@ -81,6 +81,12 @@ bool hoverExit = false;
     [self addChild:exitLabel];
 }
 
+/*
+ * mouseMoved
+ * Activates when a mouse was moved.
+ *
+ * @param theEvent - The current event containing the information about mouse.
+ */
 -(void)mouseMoved:(NSEvent *)theEvent {
     /* Called when the mouse has moved */
     CGPoint location = [theEvent locationInNode:self];
@@ -104,6 +110,12 @@ bool hoverExit = false;
     }
 }
 
+/*
+ * mouseDown
+ * Activates when a mouse key was pushed down.
+ *
+ * @param theEvent - The current event containing the information about push.
+ */
 -(void)mouseDown:(NSEvent *)theEvent {
     /* Called when a mouse click occurs */
     
@@ -118,7 +130,6 @@ bool hoverExit = false;
         GameScene *scene = [GameScene sceneWithSize:CGSizeMake(1024, 768)];
         //scene.scaleMode = SKSceneScaleModeAspectFill;
         scene.scaleMode = SKSceneScaleModeAspectFit;
-        [scene setMenuScene:self];
         [self.view presentScene:scene transition:reveal];
     }
     
@@ -128,7 +139,6 @@ bool hoverExit = false;
         
         InstructionScene *scene = [InstructionScene sceneWithSize:CGSizeMake(1024, 768)];
         scene.scaleMode = SKSceneScaleModeAspectFit;
-        
         [self.view presentScene:scene transition:reveal];
     }
     
@@ -138,6 +148,12 @@ bool hoverExit = false;
     }
 }
 
+/*
+ * update
+ * Function that is called each frame to update the game.
+ *
+ * @param currentTime - The current time.
+ */
 -(void)update:(CFTimeInterval)currentTime {
     /* Called before each frame is rendered */
     
