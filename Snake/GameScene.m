@@ -55,6 +55,7 @@ float angle;
 long score;
 NSString *scoreText = @"Score: ";
 SKLabelNode *scoreLabel;
+SKLabelNode *backMenu;
 
 Coin *coinLogic; /* Coin that will be reused for addding length to the snake */
 Snake *snake;    /* The snake that will be player controlled */
@@ -82,6 +83,9 @@ bool moveLeft = false;
 bool moveDown = false;
 bool moveRight = false;
 
+bool gameOver = false;
+bool hoverBackMenu = false;
+
 /* 
  * didMoveToView
  * Initializer function here is where the scene starts.
@@ -97,6 +101,8 @@ bool moveRight = false;
     screenHeight = self.frame.size.height;
     
     self.backgroundColor = [SKColor colorWithRed: 0.0 green: 0.0 blue: 0.0 alpha: 1.0];
+    
+    gameOver = false;
     
     /* Score Tracking Label */
     scoreLabel = [SKLabelNode node];
@@ -139,7 +145,7 @@ bool moveRight = false;
     NSString *key = [theEvent charactersIgnoringModifiers];
     unichar keyChar = 0;
     
-    if ([key length] == 1) {
+    if ([key length] == 1 && gameOver == false) {
         keyChar = [key characterAtIndex:0];
         
         switch (keyChar) {
@@ -169,7 +175,7 @@ bool moveRight = false;
     NSString *key = [theEvent charactersIgnoringModifiers];
     unichar keyChar = 0;
     
-    if ([key length] == 1) {
+    if ([key length] == 1 && gameOver == false) {
         keyChar = [key characterAtIndex:0];
         
         switch (keyChar) {
@@ -186,6 +192,26 @@ bool moveRight = false;
                 moveRight = false;
                 break;
         }
+    }
+}
+
+/*
+ * mouseDown
+ * Activates when a mouse key was pushed down.
+ *
+ * @param theEvent - The current event containing the information about push.
+ */
+-(void)mouseDown:(NSEvent *)theEvent {
+    CGPoint location = [theEvent locationInNode:self];
+    
+    if (CGRectContainsPoint(backMenu.frame, location)) {
+        /* Display MainMenu */
+        SKTransition *reveal = [SKTransition fadeWithDuration:3];
+        
+        MenuScene *scene = [MenuScene sceneWithSize:CGSizeMake(1024, 768)];
+        scene.scaleMode = SKSceneScaleModeAspectFit;
+        
+        [self.view presentScene:scene transition:reveal];
     }
 }
 
@@ -257,8 +283,14 @@ bool moveRight = false;
         
         speedActive = true;
         speedTimer = globalTimer + 3;
-        
-        NSLog(@"snake hit the Coin");
+    }
+    
+    if ([[snake snakeParts] count] > 5) {
+        if ((firstBody.categoryBitMask == snakeHitCategory && secondBody.categoryBitMask == snakePartHitCategory) ||
+            (secondBody.categoryBitMask == snakePartHitCategory && firstBody.categoryBitMask == snakeHitCategory)) {
+            NSLog(@"DEATH!!");
+            [self GameOver];
+        }
     }
 }
 
@@ -270,32 +302,34 @@ bool moveRight = false;
  */
 -(void)update:(CFTimeInterval)currentTime {
     /* Called before each frame is rendered */
-    globalTimer = currentTime;
+    if (gameOver == false) {
+        globalTimer = currentTime;
     
-    float newXPosition;
-    float newYPosition;
+        float newXPosition;
+        float newYPosition;
     
-    newXPosition = snake.position.x - sinf(DEGREES_TO_RADIANS(angle)) * [snake snakeSpeed];
-    newYPosition = snake.position.y + cosf(DEGREES_TO_RADIANS(angle)) * [snake snakeSpeed];
+        newXPosition = snake.position.x - sinf(DEGREES_TO_RADIANS(angle)) * [snake snakeSpeed];
+        newYPosition = snake.position.y + cosf(DEGREES_TO_RADIANS(angle)) * [snake snakeSpeed];
     
-    snake.position = CGPointMake(newXPosition, newYPosition);
+        snake.position = CGPointMake(newXPosition, newYPosition);
     
-    if (moveLeft) {
-        angle += rotateSpeed;
-        snake.zRotation = snake.zRotation + DEGREES_TO_RADIANS(rotateSpeed);
-    }
+        if (moveLeft) {
+            angle += rotateSpeed;
+            snake.zRotation = snake.zRotation + DEGREES_TO_RADIANS(rotateSpeed);
+        }
     
-    if (moveRight) {
-        angle-= rotateSpeed;
-        snake.zRotation = snake.zRotation - DEGREES_TO_RADIANS(rotateSpeed);
-    }
+        if (moveRight) {
+            angle-= rotateSpeed;
+            snake.zRotation = snake.zRotation - DEGREES_TO_RADIANS(rotateSpeed);
+        }
     
-    [snake updateSnakeParts:snake.position.x :snake.position.y];
+        [snake updateSnakeParts:snake.position.x :snake.position.y];
     //NSLog(@"Angle: %f", angle);
     
-    if (currentTime > speedTimer && speedActive) {
-        [snake resetSpeed];
-        speedActive = false;
+        if (currentTime > speedTimer && speedActive) {
+            [snake resetSpeed];
+            speedActive = false;
+        }
     }
 }
 
@@ -345,16 +379,19 @@ bool moveRight = false;
  * @TODO: Make new snake have the same speed as current HEAD.
  */
 -(void)newSnake {
-    Snake *newSnake = [[Snake new] initWithCollision:snakePartHitCategory :coinHitCategory];
-    [newSnake setProperties:screenWidth :screenHeight];
+    Snake *newSnake;
     
     if ([[snake snakeParts] count] > 0) {
+        newSnake = [[Snake new] initWithCollision:snakePartHitCategory :coinHitCategory];
+        [newSnake setProperties:screenWidth :screenHeight];
         Snake *lastSnake = [[snake snakeParts] lastObject];
         newSnake.position = CGPointMake(lastSnake.position.x - sinf(DEGREES_TO_RADIANS(angle)) * -1,
                                         lastSnake.position.y + cosf(DEGREES_TO_RADIANS(angle)) * -1);
         newSnake.zRotation = lastSnake.zRotation;
         newSnake.snakeSpeed = lastSnake.snakeSpeed;
     } else {
+        newSnake = [[Snake new] initWithCollision:snakePartHitCategory :snakeHitCategory];
+        [newSnake setProperties:screenWidth :screenHeight];
         newSnake.position = CGPointMake(snake.position.x - sinf(DEGREES_TO_RADIANS(angle)) * -1,
                                         snake.position.y + cosf(DEGREES_TO_RADIANS(angle)) * -1);
         newSnake.zRotation = snake.zRotation;
@@ -380,6 +417,22 @@ bool moveRight = false;
     explosionEmitter = [NSKeyedUnarchiver unarchiveObjectWithFile:explostionPath];
     explosionEmitter.name = @"explosion";
     explosionEmitter.targetNode = self.scene;
+}
+
+-(void)GameOver {
+    /* Game Over Logic */
+    gameOver = true;
+    
+    SKLabelNode *gameoverLabel = [SKLabelNode node];
+    gameoverLabel.text = @"You lost, please click back to return to the Main Menu.";
+    gameoverLabel.position = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2);
+    
+    backMenu = [SKLabelNode node];
+    backMenu.text = @"Back";
+    backMenu.position = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2 - 50);
+    
+    [self addChild:gameoverLabel];
+    [self addChild:backMenu];
 }
 
 @end

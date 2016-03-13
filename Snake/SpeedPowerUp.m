@@ -104,7 +104,6 @@
     Square1.position = CGPointMake([self randomPos:0 :self.screenWidth], [self randomPos:0 :self.screenHeight]);
     
     [self addChild:self.Square1];
-    NSLog(@"After: %f", self.position.x);
 }
 
 @end

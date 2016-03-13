@@ -117,7 +117,6 @@
     self.position = CGPointMake([self randomPos:0 :self.screenWidth], [self randomPos:0 :self.screenHeight]);
     self.posX = self.position.x;
     self.posY = self.position.y;
-    NSLog(@"After: %f", self.position.x);
 }
 
 /*
